@@ -18,13 +18,7 @@ namespace Task15
         //The sum of the digits of the number 1234 is : 10
         public static int SumOfNumbers(int number)
         {
-            int sum = 0;
-            while (number != 0)
-            {
-                sum += number % 10;
-                number /= 10;
-            }
-            return sum;
+            throw new NotImplementedException();
         }
 
         //Write a method in C# Sharp to create a recursive function to calculate the Fibonacci number of a specific term.
