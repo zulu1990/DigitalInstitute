@@ -7,7 +7,8 @@ namespace Task15
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            DrawChessBoard();
+
         }
 
         //Task 1
@@ -18,7 +19,13 @@ namespace Task15
         //The sum of the digits of the number 1234 is : 10
         public static int SumOfNumbers(int number)
         {
-            throw new NotImplementedException();
+            int sum = 0;
+            while (number != 0)
+            {
+                sum += number % 10;
+                number /= 10;
+            }
+            return sum;
         }
 
         //Write a method in C# Sharp to create a recursive function to calculate the Fibonacci number of a specific term.
@@ -29,13 +36,27 @@ namespace Task15
         //The Fibonacci sequence is a series of numbers in which each number is the sum of the two preceding ones, often starting with 0 and 1. That is, the sequence goes: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
         public static int Fibonacci(int number)
         {
-            throw new NotImplementedException();
+            if (number <= 1)
+            {
+                return number;
+            }
+            else
+            {
+                return Fibonacci(number - 1) + Fibonacci(number - 2);
+            }
         }
 
         // Write C# method to draw the Chess board in console
         public static void DrawChessBoard()
         {
-
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    Console.Write("[]");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
