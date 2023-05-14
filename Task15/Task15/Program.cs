@@ -7,8 +7,9 @@ namespace Task15
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
             Console.WriteLine(SumOfNumbers());
+
+            Console.WriteLine(Fibonacci(10)); 
         }
 
         //Task 1
@@ -37,9 +38,16 @@ namespace Task15
         //Expected Output :
         //The Fibonacci of 10 th term is 55
         //The Fibonacci sequence is a series of numbers in which each number is the sum of the two preceding ones, often starting with 0 and 1. That is, the sequence goes: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
-        public static int Fibonacci()
+        public static int Fibonacci(int n)
         {
-            throw new NotImplementedException();
+
+            if(n <=1 )
+            {
+                return n;
+            }
+
+            return Fibonacci(n - 1) + Fibonacci(n - 2);
+
         }
 
         // Write C# method to draw the Chess board in console
