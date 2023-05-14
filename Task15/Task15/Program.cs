@@ -9,7 +9,9 @@ namespace Task15
         {
             Console.WriteLine(SumOfNumbers());
 
-            Console.WriteLine(Fibonacci(10)); 
+            Console.WriteLine(Fibonacci(10));
+
+            DrawChessBoard();
         }
 
         //Task 1
@@ -53,7 +55,37 @@ namespace Task15
         // Write C# method to draw the Chess board in console
         public static void DrawChessBoard()
         {
+            for(int i = 0; i < 8; i++)
+            {
+                Console.Write("===");
+            }
+            Console.WriteLine();
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    if ((row + col) % 2 == 0)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.Write("   ");
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("   ");
+                    }
+                }
 
+                Console.WriteLine();
+            }
+            
+
+            Console.ResetColor();
+
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("===");
+            }
         }
     }
 }
