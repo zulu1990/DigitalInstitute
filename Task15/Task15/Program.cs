@@ -8,6 +8,7 @@ namespace Task15
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+            Console.WriteLine(SumOfNumbers());
         }
 
         //Task 1
@@ -18,7 +19,16 @@ namespace Task15
         //The sum of the digits of the number 1234 is : 10
         public static int SumOfNumbers()
         {
-            throw new NotImplementedException();
+            int sum = 0;
+            int number = 1234;
+            string numToString = number.ToString();
+            char[] arr = numToString.ToCharArray();
+            for(int i = 0; i < arr.Length; i++)
+            {
+                int intNum = int.Parse(arr[i].ToString());
+                sum += intNum;
+            }
+            return sum;
         }
 
         //Write a method in C# Sharp to create a recursive function to calculate the Fibonacci number of a specific term.
