@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.Metrics;
+using System;
 
 namespace Task15
 {
@@ -13,38 +14,9 @@ namespace Task15
             //test of task2
             int fibonacci = Fibonacci(10);
             Console.WriteLine(fibonacci);
-            //test of task3
-            const int boardSize = 8;
-
-            for (int row = 0; row < boardSize; row++)
-            {
-                for (int col = 0; col < boardSize; col++)
-                {
-                    // Alternate the color of the squares based on row and column indices
-                    if ((row + col) % 2 == 0)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                    }
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-
-                    // Display a placeholder piece at each square
-                    Console.Write("X ");
-                }
-
-                // Reset colors and move to the next line for the next row
-                Console.ResetColor();
-                Console.WriteLine();
-            }
-
-            // Wait for user input before closing the console window
-            Console.ReadLine();
+                    
         }
-    }
+    
 
         //Task 1
         //Write a method in C# Sharp to create a function to calculate the sum of the individual digits of a given number.
