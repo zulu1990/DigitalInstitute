@@ -1,12 +1,25 @@
-﻿namespace Task16
+﻿using System.Globalization;
+
+namespace Task16
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            List<int> myList = new List<int>() { 2, 4, 7, 9 };
+            List<int> myList = new List<int>() { 2, -3, 4, 112, 7, 9 };
             int result = SumOfNumbersInList(myList);
             Console.WriteLine(result);
+
+            Console.WriteLine();
+            List<string> distinctWords = new List<string>() { "hi", "hi", "hello", "HI", "bye","hi", "holla" };
+            distinctWords = RemoveDuplicates(distinctWords);
+            foreach(string d in distinctWords)
+            {
+                Console.WriteLine(d);
+            }
+
+            int sumMinMax = SumOfMinAndMax(myList);
+            Console.WriteLine("\n"+ sumMinMax);
         }
 
         // Write method that accepts list of numbers and returns sum
@@ -23,13 +36,29 @@
         // Write method that accepts list of strings and returns same list, but without duplicates
         public static List<string> RemoveDuplicates(List<string> words)
         {
-            throw new NotImplementedException();
+            words = words.Distinct().ToList();
+            return words;
         }
 
         // Write method that accepts list of numbers and returns sum of minimum and maximum numbers in this lists
         public static int SumOfMinAndMax(List<int> numbers)
         {
-            throw new NotImplementedException();
+            int min = int.MaxValue;
+            int max = int.MinValue;
+
+            foreach( int num in numbers)
+            {
+                if(num<min) min = num;
+                if (num > max) max = num;
+            }
+
+
+            return min + max;
+
+
+            // solution #2
+            numbers.Sort();
+            // return numbers[0] + numbers[numbers.Count - 1];
         }
 
         // Find the most frequent element in list and return it
