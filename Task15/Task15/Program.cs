@@ -18,6 +18,7 @@ namespace Task15
         //The sum of the digits of the number 1234 is : 10
         public static int SumOfNumbers()
         {
+            Console.WriteLine("test");
             throw new NotImplementedException();
         }
 
