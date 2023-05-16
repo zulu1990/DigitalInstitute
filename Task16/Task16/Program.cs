@@ -4,13 +4,20 @@
     {
         static void Main(string[] args)
         {
-
+            List<int> myList = new List<int>() { 2, 4, 7, 9 };
+            int result = SumOfNumbersInList(myList);
+            Console.WriteLine(result);
         }
 
         // Write method that accepts list of numbers and returns sum
         public static int SumOfNumbersInList(List<int> numbers)
         {
-            throw new NotImplementedException();
+            int sum = 0;
+            foreach(int num in numbers)
+            {
+                sum += num;
+            }
+            return sum;
         }
 
         // Write method that accepts list of strings and returns same list, but without duplicates
