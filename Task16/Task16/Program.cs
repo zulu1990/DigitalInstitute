@@ -10,6 +10,7 @@
         // Write method that accepts list of numbers and returns sum
         public static int SumOfNumbersInList(List<int> numbers)
         {
+            Console.WriteLine("sovled");
             throw new NotImplementedException();
         }
 
