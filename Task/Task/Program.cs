@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
         }
     }
 
@@ -23,7 +23,70 @@
 
     class Employee
     {
-
+        private string firstName;
+        private string lastName;
+        private int emoloyeeId;
+        private decimal salary;
+        private string role;
+        public string FirstName
+        {
+            get { return firstName; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    firstName = value;
+            }
+        }
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    lastName = value;
+            }
+        }
+        public string Role
+        {
+            get { return role; }
+            set
+            {
+                if (!string.IsNullOrEmpty(role))
+                    role = value;
+            }
+        }
+        public int EmployeeId
+        {
+            get { return emoloyeeId; }
+            set
+            {
+                if (value >= 0)
+                    emoloyeeId = value;
+            }
+        }
+        public decimal Salary
+        {
+            get { return salary; }
+            set
+            {
+                if (value >= 0)
+                    salary = value;
+            }
+        }
+        public Employee(string firstName, string lastName, int emoloyeeId, decimal salary, string role)
+        {
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(role) || emoloyeeId < 0 || salary < 0)
+                throw new ArgumentNullException();
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.emoloyeeId = emoloyeeId;
+            this.salary = salary;
+            this.role = role;
+        }
+        public string GetFullName()
+        {
+            return $"{this.firstName} {this.lastName}";
+        }
     }
 
     //  Task 2: Create a BankAccount class.
@@ -42,6 +105,57 @@
 
     class BankAccount
     {
+        private string _accountNumber;
+        private string _ownerName;
+        private decimal _balance;
+        public BankAccount(string accountNumber, string ownerName, decimal balance)
+        {
+            _accountNumber = accountNumber;
+            _ownerName = ownerName;
+            _balance = balance;
+        }
+        public string AccountNumber
+        {
+            get { return _accountNumber; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    _accountNumber = value;
+            }
+        }
+        public string OwnerName
+        {
+            get { return _ownerName; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    _ownerName = value;
+            }
+        }
+        public decimal Balance
+        {
+            get { return _balance; }
+        }
+        public bool Deposite(decimal amount)
+        {
+            if (amount > 0)
+            {
+                _balance += amount;
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool Withdraw(decimal amount)
+        {
+            if (amount > 0 && _balance >= amount)
+            {
+                _balance -= amount;
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     //  Task 3: Building a Student Class with Overloaded Constructors
@@ -63,6 +177,47 @@
 
     class Student
     {
+        private string _name;
+        private int _grade;
+        public string SchoolName { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    _name = value;
+            }
+        }
+        public int Grade
+        {
+            get { return _grade; }
+            set
+            {
+                if(value >= 1 && value < 12)
+                    _grade = value;
+            }
+        }
 
+        public Student(string name, int grade, string schoolName) : this(name, grade)
+        {
+            SchoolName = schoolName;
+        }
+
+        public Student(string name, int grade) : this(name)
+        {
+            _grade = grade;
+        }
+
+        public Student(string name) : this()
+        {
+            _name = name;
+        }
+        public Student()
+        {
+            _name = "Unnamed";
+            _grade = 1;
+            SchoolName = "Unknown";
+        }
     }
 }
