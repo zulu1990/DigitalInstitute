@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.Metrics;
-
-namespace Task15
+﻿namespace Task15
 {
     internal class Program
     {
