@@ -1,12 +1,4 @@
-﻿using System.Data;
-using System.Xml.Linq;
-using System;
-using System.Diagnostics;
-using System.Reflection.Metadata;
-using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
-
-namespace Task
+﻿namespace Task
 {
     internal class Program
     {
