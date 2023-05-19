@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
         }
     }
 
@@ -23,6 +23,83 @@
 
     class Employee
     {
+        private string _firstName;
+        private string _lastName;
+        private int _employeeId;
+        private double _salary;
+        private string _role;
+
+        public string Firstname
+        {
+            get => _firstName;
+
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new Exception("u didn't entered the name");
+
+                _firstName = value;
+            }
+        }
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new Exception("u didn't entered the lname");
+
+                _lastName = value;
+            }
+        }
+        public int EmployeeId
+        {
+            get => _employeeId;
+            set
+            {
+                if (_employeeId < 0)
+                {
+                    throw new Exception("employeeId is less then 0");
+                }
+                _employeeId = value;
+            }
+        }
+        public double Salary
+        {
+            get => _salary;
+            set
+            {
+                if (_salary < 0)
+                    throw new Exception("salary is less then 0");
+
+                _salary = value;
+
+            }
+        }
+        public string Role
+        {
+            get => _role;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new Exception("role is empty");
+
+                _role = value;
+            }
+        }
+
+
+        public Employee(string firstname, string lastname, int employeeId, double salary, string role)
+        {
+            _firstName = firstname;
+            _lastName = lastname;
+            _employeeId = employeeId;
+            _salary = salary;
+            _role = role;
+        }
+
+
+        public string GetFullName() => $"{Firstname} {LastName}";
 
     }
 
@@ -42,7 +119,47 @@
 
     class BankAccount
     {
+        private int _accountNumber;
+        private string _ownerName;
+        private decimal _balance;
+
+        public BankAccount(int accountNumber, string ownerName, decimal balance)
+        {
+            _accountNumber = accountNumber;
+            _ownerName = ownerName;
+            _balance = balance;
+        }
+
+        public int AccountNumber
+        {
+            get => _accountNumber;
+            set => _accountNumber = value;
+        }
+        public string OwnerName
+        {
+            get => _ownerName;
+            set => _ownerName = value;
+        }
+        public decimal Balance
+        {
+            get => _balance;
+        }
+
+        public void Deposit(decimal dep) => _balance += dep;
+
+        public void Withdraw(decimal with)
+        {
+            if (with <= _balance)
+                _balance -= with;
+
+            else
+                Console.WriteLine("cent do this operation");
+
+        }
+
+
     }
+
 
     //Task 3: Building a Student Class with Overloaded Constructors
 
@@ -63,6 +180,58 @@
 
     class Student
     {
+        public string _scoolName;
+        private string _name;
+        private decimal _grade;
+
+        public Student()
+        {
+            _name = "Unnamed";
+            _grade = 1;
+            _scoolName = "Unknown";
+        }
+        public Student(string name) : this()
+        {
+            _name = name;
+        }
+
+        public Student(string name, decimal grade) : this(name)
+        {
+            _grade = grade;
+        }
+
+        public Student(string name, decimal grade, string scoolName) : this(name, grade)
+        {
+            _scoolName = scoolName;
+        }
+
+        public string ScoolName
+        {
+            get => _scoolName;
+            set
+            {
+                if (string.IsNullOrEmpty(_scoolName)) throw new Exception("_scoolName is empty or null");
+                _scoolName = value;
+            }
+        }
+        public decimal Grade
+        {
+            get => _grade;
+            set
+            {
+                if (value < 1 || value > 12) throw new Exception("Grade is less then 1 or more then 12");
+                _grade = value;
+            }
+        }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrEmpty(_name)) throw new Exception("name is null or empty");
+                _name = value;
+            }
+        }
 
     }
 }
