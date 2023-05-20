@@ -23,7 +23,90 @@
 
     class Employee
     {
+        private string firstName;
+        private string lastName;
+        private int employeeId;
+        private decimal salary;
+        private string role;
 
+        public Employee(string firstName, string lastName, int employeeId, decimal salary, string role)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.EmployeeId = employeeId;
+            this.Salary = salary;
+            this.Role = role;
+        }
+
+        public string FirstName
+        {
+            get { return firstName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("First name should not be empty or whitespace.");
+                }
+                firstName = value;
+            }
+        }
+
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Last name should not be empty or whitespace.");
+                }
+                lastName = value;
+            }
+        }
+
+        public int EmployeeId
+        {
+            get { return employeeId; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Employee ID cannot be negative.");
+                }
+                employeeId = value;
+            }
+        }
+
+        public decimal Salary
+        {
+            get { return salary; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Salary cannot be negative.");
+                }
+                salary = value;
+            }
+        }
+
+        public string Role
+        {
+            get { return role; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Role should not be empty or whitespace.");
+                }
+                role = value;
+            }
+        }
+
+        public string GetFullName()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 
     //Task 2
@@ -42,7 +125,71 @@
 
     class BankAccount
     {
+        private string accountNumber;
+        private string ownerName;
+        private decimal balance;
+
+        public BankAccount(string accountNumber, string ownerName)
+        {
+            this.AccountNumber = accountNumber;
+            this.OwnerName = ownerName;
+            this.balance = 0;
+        }
+
+        public string AccountNumber
+        {
+            get { return accountNumber; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Account number should not be empty or whitespace.");
+                }
+                accountNumber = value;
+            }
+        }
+
+        public string OwnerName
+        {
+            get { return ownerName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Owner name should not be empty or whitespace.");
+                }
+                ownerName = value;
+            }
+        }
+
+        public decimal Balance
+        {
+            get { return balance; }
+        }
+
+        public void Deposit(decimal amount)
+        {
+            if (amount <= 0)
+            {
+                throw new ArgumentException("Amount to deposit should be greater than zero.");
+            }
+            balance += amount;
+        }
+
+        public void Withdraw(decimal amount)
+        {
+            if (amount <= 0)
+            {
+                throw new ArgumentException("Amount to withdraw should be greater than zero.");
+            }
+            if (amount > balance)
+            {
+                throw new InvalidOperationException("Insufficient funds in the account.");
+            }
+            balance -= amount;
+        }
     }
+
 
     //Task 3: Building a Student Class with Overloaded Constructors
 
@@ -61,8 +208,59 @@
     // 5) Implement public getters and setters for each of these properties.
     //  Make sure that the setter methods validate the inputs (for example, name should not be an empty string, grade should be between 1 and 12).
 
-    class Student
+    public class Student
     {
+        private string name;
+        private int grade;
+        public string SchoolName { get; set; }
 
+        public Student()
+        {
+            this.name = "Mishiko";
+            this.grade = 1;
+            this.SchoolName = "Bussines School";
+        }
+
+        public Student(string name) : this()
+        {
+            this.name = name;
+        }
+
+        public Student(string name, int grade) : this(name)
+        {
+            this.grade = grade;
+        }
+
+        public Student(string name, int grade, string schoolName) : this(name, grade)
+        {
+            this.SchoolName = schoolName;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Name should not be empty or whitespace.");
+                }
+                name = value;
+            }
+        }
+
+        public int Grade
+        {
+            get { return grade; }
+            set
+            {
+                if (value < 1 || value > 12)
+                {
+                    throw new ArgumentException("Grade should be between 1 and 12.");
+                }
+                grade = value;
+            }
+        }
     }
+
 }
