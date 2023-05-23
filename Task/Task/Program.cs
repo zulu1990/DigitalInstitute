@@ -1,10 +1,21 @@
-﻿namespace Task
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Task
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            //test task 1
+            Employee e = new Employee("tom", "ha", 15, 120, "sales");
+            string x = e.GetFullName(e);
+            Console.WriteLine(x);
+
+            //test task 2
+            BankAccount b = new BankAccount(15, "Tornike");
+            b.deposit(1000);
+            b.withdraw(500);
+            Console.WriteLine(b.Balance);
         }
     }
 
@@ -23,6 +34,89 @@
 
     class Employee
     {
+        private string firstName;
+        private string lastName;
+        private int employeeId;
+        private int salary;
+        private string role { get; set; }
+
+        public string FirstName
+        {
+            get { return firstName; }
+            set 
+            {
+                if(!string.IsNullOrEmpty(value))
+                {
+                    firstName = value;
+                }
+                else
+                {
+                    throw new Exception("incorrect");
+                }
+            }
+        }
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    lastName = value;
+                }
+                else
+                {
+                    throw new Exception("incorrect");
+                }
+            }
+        }
+
+        public int EmployeeId
+        {
+            get { return employeeId; }
+            set
+            {
+                if(value > 0)
+                {
+                    employeeId = value;
+                }
+                else
+                {
+                    throw new Exception("incorrect");
+                }
+            }
+        }
+
+        public int Salary
+        {
+            get { return salary; }
+            set
+            {
+                if(value > 0)
+                {
+                    salary = value;
+                }
+                else
+                {
+                    throw new Exception("incorrect");
+                }
+            }
+        }
+
+        public Employee (string _firstName, string _lastName, int _employeeId, int _salary, string _role)
+        {
+            FirstName = _firstName;
+            LastName = _lastName;
+            EmployeeId = _employeeId;
+            Salary = _salary;
+            role = _role;
+        }
+
+        public string GetFullName(Employee e)
+        {
+            return firstName + " " + lastName;
+        }
+
 
     }
 
@@ -42,6 +136,73 @@
 
     class BankAccount
     {
+        private int _accountNumber;
+        private string _ownerName;
+        private int _balance = 0;
+
+        public int AccountNumber
+        {
+            get { return _accountNumber; }
+            set
+            {
+                if( value > 0)
+                {
+                    _accountNumber = value;
+                }
+                else
+                {
+                    throw new Exception("invalid");
+                }
+            }
+        }
+
+        public string OwnerName
+        {
+            get { return _ownerName; }
+            set
+            {
+                if(!string.IsNullOrEmpty(value))
+                {
+                    _ownerName = value;
+                }
+                else
+                {
+                    throw new Exception("invalid");
+                }
+            }
+        }
+
+        public int Balance
+        {
+            get { return _balance; }
+            set { }
+        }
+
+        public BankAccount(int accountnumber, string ownername)
+        {
+            AccountNumber = accountnumber;
+            OwnerName = ownername;
+        }
+
+        public void deposit(int money)
+        {
+            _balance = _balance + money; 
+        }
+
+        public void withdraw(int money)
+        {
+            if(money <= _balance)
+            {
+                _balance = _balance - money;
+            }
+            else
+            {
+                throw new Exception("invalid activity");
+            }
+        }
+
+
+
     }
 
     //Task 3: Building a Student Class with Overloaded Constructors
@@ -63,6 +224,52 @@
 
     class Student
     {
+        private string _name;
+        private int _grade;
+        public string _schoolname;
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+            }
+        }
+        public int Grade
+        {
+            get
+            {
+                return _grade;
+            }
+            set
+            {
+                if(value > 0 && value <=12)
+                {
+                    _grade = value;
+                }
+            }
+        }
+        public string SchoolName
+        {
+            get
+            {
+                return _schoolname;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _schoolname = value;
+                }
+            }
+        }
 
     }
 }
