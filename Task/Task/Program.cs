@@ -127,15 +127,12 @@ namespace Task
             Color = color;
         }
 
-
         public override void Move()
         {
             base.Move();
             Console.WriteLine("The fish swims");
         }
 
-
-        
     }
 
     // 2) Using 'sealed' Keyword
