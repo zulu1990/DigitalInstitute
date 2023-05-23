@@ -14,8 +14,10 @@ namespace Task
             Console.WriteLine(bird1.ToString());
             Bird bird2 = new Bird("loco", 2, "white");
             Console.WriteLine(bird2.GetDetails());
+
             Cat cat = new Cat();
             cat.Move();
+
             Fish fish = new Fish();
             fish.Move();
         }
