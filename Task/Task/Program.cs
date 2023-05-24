@@ -16,6 +16,13 @@ namespace Task
             b.deposit(1000);
             b.withdraw(500);
             Console.WriteLine(b.Balance);
+
+
+            //test task 3
+            Student student = new Student("tom");
+            Console.WriteLine(student.Grade);
+            
+
         }
     }
 
@@ -43,9 +50,9 @@ namespace Task
         public string FirstName
         {
             get { return firstName; }
-            set 
+            set
             {
-                if(!string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value))
                 {
                     firstName = value;
                 }
@@ -76,7 +83,7 @@ namespace Task
             get { return employeeId; }
             set
             {
-                if(value > 0)
+                if (value > 0)
                 {
                     employeeId = value;
                 }
@@ -92,7 +99,7 @@ namespace Task
             get { return salary; }
             set
             {
-                if(value > 0)
+                if (value > 0)
                 {
                     salary = value;
                 }
@@ -103,7 +110,7 @@ namespace Task
             }
         }
 
-        public Employee (string _firstName, string _lastName, int _employeeId, int _salary, string _role)
+        public Employee(string _firstName, string _lastName, int _employeeId, int _salary, string _role)
         {
             FirstName = _firstName;
             LastName = _lastName;
@@ -145,7 +152,7 @@ namespace Task
             get { return _accountNumber; }
             set
             {
-                if( value > 0)
+                if (value > 0)
                 {
                     _accountNumber = value;
                 }
@@ -161,7 +168,7 @@ namespace Task
             get { return _ownerName; }
             set
             {
-                if(!string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value))
                 {
                     _ownerName = value;
                 }
@@ -186,12 +193,12 @@ namespace Task
 
         public void deposit(int money)
         {
-            _balance = _balance + money; 
+            _balance = _balance + money;
         }
 
         public void withdraw(int money)
         {
-            if(money <= _balance)
+            if (money <= _balance)
             {
                 _balance = _balance - money;
             }
@@ -224,10 +231,13 @@ namespace Task
 
     class Student
     {
+        //fields
         private string _name;
         private int _grade;
         public string _schoolname;
 
+
+        //getters and setters
         public string Name
         {
             get
@@ -250,7 +260,7 @@ namespace Task
             }
             set
             {
-                if(value > 0 && value <=12)
+                if (value > 0 && value <= 12)
                 {
                     _grade = value;
                 }
@@ -269,6 +279,32 @@ namespace Task
                     _schoolname = value;
                 }
             }
+        }
+
+        //consturctors
+        public Student()
+        {
+            Name = "Unnamed";
+            Grade = 1;
+            SchoolName = "Unknown";
+        }
+
+        public Student(string name) : this()
+        {
+            Name = name;
+        }
+
+        public Student(string name, int grade) : this()
+        {
+            Name = name;
+            Grade = grade;
+        }
+
+        public Student(string name, int grade,  string schoolname) : this()
+        {
+            Name = name;
+            Grade = grade;
+            SchoolName = schoolname;
         }
 
     }
