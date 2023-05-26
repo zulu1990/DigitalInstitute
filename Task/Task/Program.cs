@@ -32,4 +32,5 @@ namespace Task
     //In this 'GetDetails' method, use the base keyword to access properties of the base class.
 
     // 4) Try modeling other stuff with your knowledge (as much as you can!
+    qweqwqsadf
 }
