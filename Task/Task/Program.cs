@@ -1,20 +1,12 @@
-﻿using System.Buffers.Text;
-using System.Collections;
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Reflection.Metadata;
-using static System.Net.Mime.MediaTypeNames;
-using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
-
+﻿
 namespace Task
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-
+            int a = 5;
+            a.ToString();
         }
     }
 
