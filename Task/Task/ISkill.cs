@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task
+﻿namespace Task
 {
-    internal interface ISkill
+    public interface ISkill
     {
-        void UseSkill(double strength);
+        void UseSkill();
     }
 }

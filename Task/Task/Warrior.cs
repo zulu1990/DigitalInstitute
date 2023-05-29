@@ -1,68 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task
+﻿namespace Task
 {
     public enum ArmorType { NONE, LIGHT, HEAVY, MAGICAL };
-    internal class Warrior : Character, ISkill
+    public class Warrior : Character, ISkill
     {
-        protected ArmorType Armor { get; set; }
+        private ArmorType armor;
+        public ArmorType Armor {
+            get => armor;
+            set
+            {
+                if(!Enum.IsDefined(typeof(ArmorType), value))
+                {
+                    throw new ArgumentException("Invalid Armor! That armor doesn't exist");
+                }
+                armor = value;
+            }
+        }
         public Warrior() : base()
         {
             Armor = ArmorType.NONE;
         }
-        public Warrior(string name, int health, int strength, int availablePoints, ArmorType armor) :
+        public Warrior(string name, double health, double strength, double availablePoints, ArmorType armor) :
             base(name, health, strength, availablePoints)
         {
             Armor = armor;
         }
 
-        public override void Attack(Character oponent)
+        public override void Attack(Character mage)
         {
+            if (Health == 0)
+            {
+                Console.WriteLine("your Health is at 0; You can't use skill!");
+                return;
+            }
+
+            if (mage == null)
+            {
+                Console.WriteLine("who are you fighting? This oponent doesn't exist\n");
+                return;
+            }
             if (this.Strength > 0 && this.Strength < 50)
             {
-                oponent.Health -= oponent.Health * 0.1;
+                mage.Health -= 10;
                 AvailablePoints += 10;
             }
             else if (this.Strength >= 50 && this.Strength < 80)
             {
-                oponent.Health -= oponent.Health * 0.2;
+                mage.Health -= 20;
                 AvailablePoints += 20;
             }
             else
             {
-                oponent.Health -= oponent.Health * 0.3;
+                mage.Health -= 30;
                 AvailablePoints += 30;
             }
+            if (mage.AvailablePoints < 0)
+            {
+                Console.WriteLine("Warrior is winner!\n");
+            }
+        }
+
+        // UseSkill
+        // if Warrior has LIGHT, HEAVY, MAGICAL armor she/he can increase Health
+        public void UseSkill()
+        {
+            if (Health == 0)
+            {
+                Console.WriteLine("your Health is at 0; You can't use skill!");
+                return;
+            }
+            switch (Armor)
+            {
+                case ArmorType.LIGHT:
+                    Health += Health * 0.2; break;
+                case ArmorType.HEAVY:
+                    Health += Health * 0.4; break;
+                case ArmorType.MAGICAL:
+                    Health += Health * 0.5; break;
+                default:
+                    Console.WriteLine("This skill can't be used\n"); break;
+            }
+
+            AvailablePoints -= 20;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $"{nameof(Armor)}: {Armor}\n";
-        }
-
-        // UseSkill increases the Stregth of Warrior
-        // with 1 Point we can increase Strength by 1
-        public void UseSkill(double strength)
-        {
-            if (this.AvailablePoints >= strength) 
-            {
-                if (Strength+strength > 100)
-                {
-                    Strength -= strength;
-                    throw new ArgumentOutOfRangeException("Strength can't be more than 100\n");
-                }
-                Strength += strength;
-                AvailablePoints -= strength;
-            }
-            Console.WriteLine($"Not enough Points to increase Strength by {strength}");
+            string coloredArmor = $"\u001b[32m{Armor}\u001b[0m";
+            string coloredInfo = $"\u001b[33m**** Warrior info ****\u001b[0m";
+            return $"{coloredInfo}\n" + base.ToString() + $"{nameof(Armor)}: {coloredArmor}\n";
         }
     }
 }
-//Task 2: Inheritance and Method Overriding
-//Create a derived class Warrior that inherits from the Character class.
-//Add a new property Armor.Override the Attack() method to include a bonus damage when Armor is above a certain value.
 

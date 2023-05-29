@@ -1,49 +1,103 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Task
 {
-    //Task 5: Interface Implementation with Inheritance
-    //Create another class Mage that also inherits from Character and implements the ISkill interface.
-    //Mage should have its own properties like Mana and a different implementation of UseSkill() - perhaps a spell that heals the character or increases their attack but also at the cost of AvailablePoints.
-
-    internal class Mage : Character, ISkill
+    public class Mage : Character, ISkill
     {
 
-        private int Mana { get; set; } = 0;
-        public Mage():base() 
+        private int mana;
+
+        // Mage can use Mana only 3 time
+        private int Mana
         {
-            Mana = 10;
-        }
-        public Mage(string name, int health, int strength, int availablePoints, int mana)
-            :base (name, health, strength, availablePoints)
-        {
-                Mana = mana;
-        }
-        public override void Attack(Character oponent)
-        {
-            throw new NotImplementedException();
+            get => mana;
+            set
+            {
+                if (value < 0 || value > 3)
+                {
+                    throw new InvalidDataException("Mana should be between 0-3");
+                }
+                mana = value;
+            }
         }
 
-        // heal the character
-        public void UseSkill(double strength)
+        // Constructors
+        public Mage() : base()
         {
-            if (Health > 10)
+            Mana = 3;
+        }
+        public Mage(string name) : base(name) { }
+        public Mage(string name, double health, double strength, double availablePoints, int mana)
+            : base(name, health, strength, availablePoints)
+        {
+            Mana = mana;
+        }
+
+        public override void Attack(Character warrior)
+        {
+            if (Health == 0)
             {
-                Console.WriteLine("You can't use this skill until your healt is above 10! use it when you really need it!\n");
+                Console.WriteLine("your Health is at 0; You can't use skill!");
                 return;
             }
-            if (AvailablePoints < 50)
+
+            if (warrior == null)
             {
-                Console.WriteLine("Not enough points. Your Character can't be healed by this method\n");
+                Console.WriteLine("who are you fighting? This warrior doesn't exist\n");
                 return;
             }
-            Health = 100;
-            AvailablePoints -= 50;
+            if (this.Strength > 0 && this.Strength < 50)
+            {
+                warrior.Health -= 10;
+                AvailablePoints += 10;
+            }
+            else if (this.Strength >= 50 && this.Strength < 80)
+            {
+                warrior.Health -= 20;
+                AvailablePoints += 20;
+            }
+            else
+            {
+                warrior.Health -= 30;
+                AvailablePoints += 30;
+            }
+
+            if (warrior.AvailablePoints < 0)
+            {
+                Console.WriteLine("Mage is winner!\n");
+            }
+        }
+
+        // skill, that is spell and heals the Character. It can't heal more than 3 times
+        public void UseSkill()
+        {
+            if (Health == 0)
+            {
+                Console.WriteLine("your Health is at 0; You can't use skill!");
+                return;
+            }
+
+            if (Mana != 0)
+            {
+                if (Health < 10)
+                {
+                    Console.WriteLine("You can't use this skill until your health is more than 10! use it when you really need it!\n");
+                    return;
+                }
+                if (AvailablePoints < 50)
+                {
+                    Console.WriteLine("Not enough points. Your Character can't ne healed\n");
+                    return;
+                }
+                Health = 100;
+                AvailablePoints -= 50;
+                Mana -= 1;
+            }
+        }
+        public override string ToString()
+        {
+            string coloredMana = $"\u001b[32m{Mana}\u001b[0m";
+            string coloredInfo = $"\u001b[34m**** Mage info ****\u001b[0m";
+            return $"{coloredInfo}\n"+ base.ToString() + $"{nameof(Mana)}: {coloredMana}\n";
         }
     }
 }

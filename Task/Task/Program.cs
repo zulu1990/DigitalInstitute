@@ -1,22 +1,42 @@
 ﻿
 namespace Task
 {
-    internal class Program
-    {
-        static void Main(string[] args)
+        internal class Program
         {
-            int a = 5;
-            a.ToString();
+            static void Main()
+            {
+                Character warrior1 = new Warrior();
+                Character mage1 = new Mage();
+
+                Character warrior2 = new Warrior("Bellatrix", 80, 70, 100, ArmorType.MAGICAL);
+                Character mage2 = new Mage("Albus", 0, 20, 100,2);
+
+                List<Character> characters = new List<Character>()
+                {
+                    warrior1,
+                    mage1,
+                    warrior2,
+                    mage2,
+                
+                };
+                mage2.Attack(warrior2);
+                foreach(Character character in characters)
+                {
+                    Console.WriteLine(character.ToString());
+                }
+
+                List<ISkill> skills = new List<ISkill>()
+                {
+                };
+            }
         }
-    }
 
 
         //Task 1: Classes and Constructors
         //Create a class Character with properties like Name, Health, Strength, and AvailablePoints.
         //Implement two constructors - a default constructor that assigns some default values and another constructor which accepts values for the properties.
         //The AvailablePoints property is the total points a player can distribute between Health and Strength.
-        
-
+       
 
         //Task 2: Inheritance and Method Overriding
         //Create a derived class Warrior that inherits from the Character class.
