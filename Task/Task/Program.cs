@@ -15,6 +15,8 @@ namespace Task
         //Create a class Character with properties like Name, Health, Strength, and AvailablePoints.
         //Implement two constructors - a default constructor that assigns some default values and another constructor which accepts values for the properties.
         //The AvailablePoints property is the total points a player can distribute between Health and Strength.
+        
+
 
         //Task 2: Inheritance and Method Overriding
         //Create a derived class Warrior that inherits from the Character class.
