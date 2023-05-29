@@ -1,24 +1,19 @@
 ﻿using Gladiators.Common.Characters;
+using Gladiators.Common.SkillContracts;
 using Gladiators.Common.SkillContracts.BasedOnClass;
 
 namespace Gladiators.Common.Skills.Warrior
 {
-    public class IceSpear : IWarriorSkill
+    public class IceSpear : BaseSkill, IWarriorSkill
     {
-        public string Name => "Ice Spear";
+        const string name = "Ice Spear";
+        const int manaCost = 2;
+        const int value = 10;
+        public IceSpear(): base(name, manaCost, value) { }
 
-        public int ManaCost => 20;
-        public bool IsActive { get; set; } = true;
-
-        public void Use(Character attacker)
+        public override void Use(Character attacker)
         {
-            IsActive = true;
-            Console.WriteLine($"Attacker {attacker.Name} used {Name} old Damage is {attacker.PhysicalDamage} new Damage is {attacker.PhysicalDamage += 10}");
-        }
-
-        public void Use(Character attacker, Character target)
-        {
-            throw new NotImplementedException();
+            Console.WriteLine($"Attacker {attacker.Name} used {Name} old Damage is {attacker.PhysicalDamage} new Damage is {attacker.PhysicalDamage += Value}");
         }
     }
 }

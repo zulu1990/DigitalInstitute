@@ -4,22 +4,18 @@ using Gladiators.Common.SkillContracts.BasedOnClass;
 
 namespace Gladiators.Common.Skills.Warrior
 {
-    public class Defence : IWarriorSkill
+    public class Defence : BaseSkill, IWarriorSkill
     {
-        public string Name => "Defence";
-        public int ManaCost => 10;
+        const string name = "Double Defence";
+        const int manaCost = 1;
+        const int value = 2;
+        public Defence() : base(name, manaCost, value) { }
 
-        public bool IsActive { get; set; } = true;
-
-        public void Use(Character attacker)
+        public override void Use(Character attacker)
         {
             IsActive = false;
-            Console.WriteLine($"Attacker {attacker.Name} used {Name} old armor is {attacker.Armor} new armor is {attacker.Armor *= 2}");
-        }
-
-        public void Use(Character attacker, Character target)
-        {
-            throw new NotImplementedException();
+            attacker.Mana -= ManaCost;
+            Console.WriteLine($"Attacker {attacker.Name} used {Name} old armor is {attacker.Armor} new armor is {attacker.Armor *= Value}");
         }
     }
 }

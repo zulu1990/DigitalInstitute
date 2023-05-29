@@ -57,6 +57,8 @@ namespace Gladiators.API.Controllers
                 {
                     // Print the graph
                     Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
+                    Console.WriteLine("Press Enter to start the fight...");
+                    Console.ReadLine();
                 }
                 if (charOne.IsDraw(charTwo))
                 {
@@ -124,9 +126,9 @@ namespace Gladiators.API.Controllers
         }
 
         // pseudo-random
-        private static ISkill GetSkill(Character character)
+        private static BaseSkill GetSkill(Character character)
         {
-            List<ISkill> activeSkills = character.Skills.Where(x => x.IsActive && x.ManaCost <= character.Mana).ToList();
+            List<BaseSkill> activeSkills = character.Skills.Where(x => x.IsActive && x.ManaCost <= character.Mana).ToList();
             int activeSkillsCount = activeSkills.Count;
             if (activeSkillsCount == 0)
                 return null;
@@ -168,7 +170,7 @@ namespace Gladiators.API.Controllers
                         character.Intelligence,
                         character.Strength,
                         character.Vigor);
-                case CharacterClassesEnum.Archer:
+                //case CharacterClassesEnum.Archer:
                     //return new Archer
                     //    (character.Name,
                     //    character.Armor,
@@ -177,7 +179,7 @@ namespace Gladiators.API.Controllers
                     //    character.Dexterity,
                     //    character.Strength,
                     //    character.Vigor);
-                    break;
+                    //break;
                 case CharacterClassesEnum.Mage:
                     break;
             }
@@ -188,7 +190,7 @@ namespace Gladiators.API.Controllers
         {
             int labelWidth = Math.Max(characterOne.Name.Length, characterTwo.Name.Length) + 2;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
 
             sb.AppendLine(string.Format("{0," + (labelWidth + 1) + "} | {1,-" + labelWidth + "} | {2,-" + labelWidth + "} |",
                 "", characterOne.Name, characterTwo.Name));
@@ -204,6 +206,10 @@ namespace Gladiators.API.Controllers
 
             sb.AppendLine(string.Format("{0," + (labelWidth + 2) + "} | {1,-" + labelWidth + "} | {2,-" + labelWidth + "} |",
                 "Health", characterOne.Health, characterTwo.Health));
+            sb.AppendLine();
+
+            sb.AppendLine(string.Format("{0," + (labelWidth + 2) + "} | {1,-" + labelWidth + "} | {2,-" + labelWidth + "} |",
+                    "Mana", characterOne.Mana, characterTwo.Mana));
             sb.AppendLine();
 
             sb.AppendLine(string.Format("{0," + (labelWidth + 2) + "} | {1,-" + labelWidth + "} | {2,-" + labelWidth + "} |",
@@ -226,11 +232,13 @@ namespace Gladiators.API.Controllers
 
             foreach (var skill in characterOne.Skills.Concat(characterTwo.Skills))
             {
+                string characterName = (characterOne.Skills.Contains(skill)) ? characterOne.Name : characterTwo.Name;
                 string skillName = skill.Name;
                 string skillValue = skill.IsActive ? "Active" : "Inactive";
-                sb.AppendLine(string.Format("{0," + (labelWidth + 2) + "} | {1,-" + labelWidth + "} | {2,-" + labelWidth + "} |",
-                    skillName, skillValue, skillValue));
+                sb.AppendLine(string.Format("{0,-" + (labelWidth + 2) + "} | {1,-" + labelWidth + "} | {2,-" + labelWidth + "} |",
+                    characterName, skillName, skillValue));
             }
+
 
             return sb;
         }

@@ -4,24 +4,18 @@ using Gladiators.Common.SkillContracts.BasedOnClass;
 
 namespace Gladiators.Common.Skills.Warrior
 {
-    public class FireSword : IWarriorSkill
+    public class FireSword : BaseSkill, IWarriorSkill
     {
-        public string Name => "Fire Sword";
+        const string name = "Fire Sword";
+        const int manaCost = 3;
+        const int value = 20;
+        public FireSword() : base(name, manaCost, value) { }
 
-        public int ManaCost => 30;
-
-        public bool IsActive { get; set; } = true;
-
-        public void Use(Character attacker)
+        public override void Use(Character attacker)
         {
-            IsActive= false;
-            Console.WriteLine($"Attacker {attacker.Name} used {Name} old Damage is {attacker.PhysicalDamage} new Damage is {attacker.PhysicalDamage += 20}");
+            IsActive = false;
+            attacker.Mana -= ManaCost;
+            Console.WriteLine($"Attacker {attacker.Name} used {Name} old Damage is {attacker.PhysicalDamage} new Damage is {attacker.PhysicalDamage += Value}");
         }
-
-        public void Use(Character attacker, Character target)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

@@ -5,11 +5,21 @@ namespace Gladiators.Common.Characters
 {
     public abstract class Character : BaseCharacter
     {
-        public Character() {}
+        #region Private Properties
+
+        private int maxHealth;
+
+        private int maxMana;
+
+        private bool isStatsInitialized = false;
+
+        private bool timeToRegen = true;
+        #endregion
+
         public int Health { get; set; }
         protected int HealthRegen { get; set; }
 
-        public int Mana { get; protected set; }
+        public int Mana { get; set; }
         protected int ManaRegen { get; set; }
 
         public int PhysicalDamage { get; set; }
@@ -18,7 +28,7 @@ namespace Gladiators.Common.Characters
         public int CritRate { get; set; }
         public int CritDamage { get; set; }
 
-        public List<ISkill> Skills { get; set; }
+        public List<BaseSkill> Skills { get; set; }
 
         public abstract int Attack(Character target);
 
@@ -31,7 +41,29 @@ namespace Gladiators.Common.Characters
         protected abstract void CalculateManaRegen();
         protected abstract void CalculateCritRate();
         protected abstract void CalculateCritDamage();
-        public abstract void UseSkill(ISkill skill, Character target);
+
+        /// <summary>
+        /// Calculates all character stats 
+        /// </summary>
+        protected void CalculateStats()
+        {
+            CalculateDamage();
+            CalculateCritDamage();
+            CalculateCritRate();
+
+            CalculateHealth();
+            CalculateHealthRegen();
+
+            CalculateMana();
+            CalculateManaRegen();
+            if (!isStatsInitialized)
+            {
+                maxHealth = Health;
+                maxMana = Mana;
+                isStatsInitialized = true;
+            }
+        }
+        public abstract void UseSkill(BaseSkill skill, Character target);
 
         #endregion
 
@@ -51,8 +83,14 @@ namespace Gladiators.Common.Characters
 
         public void RegenManaAndHealth()
         {
-            Health += HealthRegen;
-            Mana += ManaRegen;
+            if (timeToRegen)
+            {
+                if (Health < maxHealth)
+                    Health += HealthRegen;
+                if (Mana < maxMana)
+                    Mana += ManaRegen;
+                timeToRegen = false;
+            }
         }
         #endregion
     }
