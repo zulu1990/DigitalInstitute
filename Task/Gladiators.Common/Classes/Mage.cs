@@ -67,7 +67,7 @@ namespace Gladiators.Common.Classes
             switch (this)
             {
                 case Mage attacker when attacker.Mana >= skill?.ManaCost:
-                    skill.Use(attacker);
+                    skill.Use(attacker, target);
                     attacker.Mana -= skill.ManaCost;
                     break;
                 default:

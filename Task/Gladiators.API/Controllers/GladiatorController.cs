@@ -1,4 +1,3 @@
-using Gladiators.Application.Contracts;
 using Gladiators.Common.API;
 using Gladiators.Common.Characters;
 using Gladiators.Common.Characters.Base;
@@ -6,7 +5,6 @@ using Gladiators.Common.Characters.Enum;
 using Gladiators.Common.Classes;
 using Gladiators.Common.Dto;
 using Gladiators.Common.SkillContracts;
-using Gladiators.Common.Skills.Warrior;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Text;
@@ -17,13 +15,12 @@ namespace Gladiators.API.Controllers
     [Route("[controller]")]
     public class GladiatorController : ApiControllerBase
     {
-        public GladiatorController(IRepository repository)
-        : base(repository) { }
 
-        [HttpGet("CharacterClasses")]
+        [HttpGet("Character-Classes")]
         [SwaggerOperation("get all character classes")]
         public List<NamedData> GetCharacterClasses()
         {
+            //ToDo: gasatestia Dictionari da shesacvlelia tu jobs \/
             List<NamedData> characterClasses = new();
 
             foreach (CharacterClassesEnum characterClass in Enum.GetValues(typeof(CharacterClassesEnum)))
@@ -38,7 +35,7 @@ namespace Gladiators.API.Controllers
             return characterClasses;
         }
 
-        [HttpPost("FightCharacters")]
+        [HttpPost("Fight-Characters")]
         [SwaggerOperation("fight newly created characters to each other")]
         public ResponseModel Fight([FromBody] CharacterFightRequest fightRequest)
         {
@@ -89,7 +86,9 @@ namespace Gladiators.API.Controllers
             }
         }
 
+        //ToDo: ushualod brdzola gasatania repositorishi
         #region Private Methods
+        
         private enum GameOverEnum
         {
             Draw = 1,
@@ -246,7 +245,7 @@ namespace Gladiators.API.Controllers
         #endregion
 
 
-        //ToDo: gasatania
+        //ToDo: gasatania calke
         #region models to extract from here
         public struct CharacterFightRequest
         {

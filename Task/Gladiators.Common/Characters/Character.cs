@@ -56,11 +56,16 @@ namespace Gladiators.Common.Characters
 
             CalculateMana();
             CalculateManaRegen();
+
             if (!isStatsInitialized)
             {
                 maxHealth = Health;
                 maxMana = Mana;
                 isStatsInitialized = true;
+            }
+            else
+            {
+                isStatsInitialized = false;
             }
         }
         public abstract void UseSkill(BaseSkill skill, Character target);

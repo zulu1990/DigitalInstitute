@@ -9,11 +9,5 @@ namespace Gladiators.Common.API
     [Route("api/v{version:apiVersion}/[controller]")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public class ApiControllerBase : ControllerBase
-    {
-        protected readonly IRepository _reposotory;
-        public ApiControllerBase(IRepository repository)
-        {
-            _reposotory = repository;
-        }
-    }
+    { }
 }
