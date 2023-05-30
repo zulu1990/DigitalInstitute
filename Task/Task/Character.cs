@@ -4,68 +4,75 @@
     public abstract class Character : IDisposable
     {
 
-        private string name;
-        private double health;
-        private double strength;
-        private double availablePoints;
+        private string _name;
+        private double _health;
+        private double _strength;
+        private double _availablePoints;
+        private Weapon _weapon;
         //private Weapon Weapons { get; set; } = new Weapon();
 
 
         // Properties
         public string Name
         {
-            get => name;
+            get => _name;
             set
             {
                 if (String.IsNullOrEmpty(value))
                 {
                     throw new Exception("Name can't be empty\n");
                 }
-                name = value;
+                _name = value;
             }
         }
         public double Health
         {
-            get => health;
+            get => _health;
             set
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("Health can't be less than 0\n");
+                    // throw new ArgumentOutOfRangeException("Health can't be less than 0\n");
+                    Console.WriteLine("character died");
+                    return;
                 }
                 if (value > 100)
                 {
                     throw new ArgumentOutOfRangeException("Health can't be more than 100\n");
                 }
-                health = value;
+                _health = value;
             }
         }
         public double Strength
         {
-            get => strength;
+            get => _strength;
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Strength can't be less than 0\n");
                 }
-                strength = value;
+                _strength = value;
 
             }
         }
         public double AvailablePoints
         {
-            get => availablePoints;
+            get => _availablePoints;
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Points can't be less than 0\n");
                 }
-                availablePoints = value;
+                _availablePoints = value;
             }
         }
-        private Weapon Weapon { get; set; }
+        public Weapon Weapon
+        {
+            get => _weapon;
+            set => _weapon = value;
+        }
 
         // Constructors(parameterless/with parameters)
         public Character()
@@ -100,7 +107,7 @@
             }
             else
             {
-                coloredHealth= $"\u001b[37m{Health}\u001b[0m";
+                coloredHealth = $"\u001b[37m{Health}\u001b[0m";
             }
             string coloredName = $"\u001b[32m{Name}\u001b[0m";
             return $"{nameof(Name)}: {coloredName}\n{nameof(Health)}: {coloredHealth}\n" +

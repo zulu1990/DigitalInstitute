@@ -34,15 +34,15 @@ namespace Task
 
         public override void Attack(Character warrior)
         {
-            if (Health == 0)
+            if(warrior is Mage)
             {
-                Console.WriteLine("your Health is at 0; You can't use skill!");
+                Console.WriteLine("Mages can't Attack to each other!\n");
                 return;
             }
 
-            if (warrior == null)
+            if (Health == 0)
             {
-                Console.WriteLine("who are you fighting? This warrior doesn't exist\n");
+                Console.WriteLine($"{Name} your Health is at 0; You can't use skill!");
                 return;
             }
             if (this.Strength > 0 && this.Strength < 50)
@@ -61,9 +61,9 @@ namespace Task
                 AvailablePoints += 30;
             }
 
-            if (warrior.AvailablePoints < 0)
+            if (warrior.Health < 0)
             {
-                Console.WriteLine("Mage is winner!\n");
+                Console.WriteLine($"{Name} Mage is winner!\n");
             }
         }
 
@@ -72,25 +72,26 @@ namespace Task
         {
             if (Health == 0)
             {
-                Console.WriteLine("your Health is at 0; You can't use skill!");
+                Console.WriteLine($"{Name} your Health is at 0; You can't use skill!");
                 return;
             }
 
             if (Mana != 0)
             {
-                if (Health < 10)
+                if (Health > 10)
                 {
-                    Console.WriteLine("You can't use this skill until your health is more than 10! use it when you really need it!\n");
+                    Console.WriteLine($"{Name} You can't use this skill until your health is more than 10! use it when you really need it!\n");
                     return;
                 }
                 if (AvailablePoints < 50)
                 {
-                    Console.WriteLine("Not enough points. Your Character can't ne healed\n");
+                    Console.WriteLine($"Not enough points. {Name} can't be healed\n");
                     return;
                 }
                 Health = 100;
                 AvailablePoints -= 50;
                 Mana -= 1;
+                Console.WriteLine($"{Name} successfully healed\n");
             }
         }
         public override string ToString()

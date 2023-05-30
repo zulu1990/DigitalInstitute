@@ -1,18 +1,20 @@
-﻿namespace Task
+﻿using System.Threading;
+
+namespace Task
 {
     public enum ArmorType { NONE, LIGHT, HEAVY, MAGICAL };
     public class Warrior : Character, ISkill
     {
-        private ArmorType armor;
+        private ArmorType _armor;
         public ArmorType Armor {
-            get => armor;
+            get => _armor;
             set
             {
                 if(!Enum.IsDefined(typeof(ArmorType), value))
                 {
                     throw new ArgumentException("Invalid Armor! That armor doesn't exist");
                 }
-                armor = value;
+                _armor = value;
             }
         }
         public Warrior() : base()
@@ -27,15 +29,15 @@
 
         public override void Attack(Character mage)
         {
-            if (Health == 0)
+            if (mage is Warrior)
             {
-                Console.WriteLine("your Health is at 0; You can't use skill!");
+                Console.WriteLine("Warriors can't Attack to each other!\n");
                 return;
             }
 
-            if (mage == null)
+            if (Health == 0)
             {
-                Console.WriteLine("who are you fighting? This oponent doesn't exist\n");
+                Console.WriteLine("your Health is at 0; You can't use skill!");
                 return;
             }
             if (this.Strength > 0 && this.Strength < 50)
@@ -53,7 +55,7 @@
                 mage.Health -= 30;
                 AvailablePoints += 30;
             }
-            if (mage.AvailablePoints < 0)
+            if (mage.Health < 0)
             {
                 Console.WriteLine("Warrior is winner!\n");
             }
@@ -65,7 +67,7 @@
         {
             if (Health == 0)
             {
-                Console.WriteLine("your Health is at 0; You can't use skill!");
+                Console.WriteLine($"{Name} Health is at 0; You can't use skill!\n");
                 return;
             }
             switch (Armor)
@@ -79,8 +81,13 @@
                 default:
                     Console.WriteLine("This skill can't be used\n"); break;
             }
+            if (Health > 100)
+            {
+                throw new ArgumentOutOfRangeException("Health can't be more than 100. You can't use this skill, untill you aren't enough demaged\n");
+            }
 
             AvailablePoints -= 20;
+            Console.WriteLine($"{Name} used skill\n");
         }
 
         public override string ToString()

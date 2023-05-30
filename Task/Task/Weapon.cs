@@ -1,11 +1,11 @@
 ﻿namespace Task
 {
 
-    internal class Weapon : IDisposable
+    public class Weapon : IDisposable
     {
         public void Dispose()
         {
-            Console.WriteLine($"Wipon has been disposed");
+            Console.WriteLine($"Weapon has been disposed");
         }
     }
 }
