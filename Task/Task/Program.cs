@@ -7,6 +7,7 @@ using System.Reflection.Metadata;
 using static System.Net.Mime.MediaTypeNames;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace Task
 {
@@ -14,48 +15,230 @@ namespace Task
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("--Welcome to World Of Sharpcraft--");
+            Console.WriteLine("Every stats maximum is 100, except availablepoints which is 50");
+            Console.WriteLine("With available points you can increase your strength, mana, armor, health");
 
         }
     }
 
 
-        //Task 1: Classes and Constructors
-        //Create a class Character with properties like Name, Health, Strength, and AvailablePoints.
-        //Implement two constructors - a default constructor that assigns some default values and another constructor which accepts values for the properties.
-        //The AvailablePoints property is the total points a player can distribute between Health and Strength.
+    abstract class Character
+    {
+        private string _name;
+        private int _health;
+        private int _strength;
+        private int _availablepoints;
 
-        //Task 2: Inheritance and Method Overriding
-        //Create a derived class Warrior that inherits from the Character class.
-        //Add a new property Armor.Override the Attack() method to include a bonus damage when Armor is above a certain value.
 
-        //Task 3: Abstract Classes
-        //Refactor your Character class to be an abstract class, and make the Attack() method abstract.
-        //This method should now take another Character object as a parameter and reduce their Health based on the attacker's Strength.
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if(!string.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
-        //Task 4: Introduction to Interfaces
-        //Create an interface ISkill with a method UseSkill().
-        //Implement this interface in the Warrior class with a skill that,
-        //for instance,
-        //increases Armor or Strength temporarily but at the cost of AvailablePoints.
+        public int Health
+        {
+            get
+            {
+                return _health;
+            }
+            set
+            {
+                if (value >= 0 && value <= 100){
+                    _health = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
-        //Task 5: Interface Implementation with Inheritance
-        //Create another class Mage that also inherits from Character and implements the ISkill interface.
-        //Mage should have its own properties like Mana and a different implementation of UseSkill() - perhaps a spell that heals the character or increases their attack but also at the cost of AvailablePoints.
+        public int Strength
+        {
+            get
+            {
+                return _strength;
+            }
+            set
+            {
+                if (value >= 0 && value <= 100)
+                {
+                    _strength = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
-        //Task 6: Implementing IDisposable and using the 'using' keyword
-        //Each Character has a Weapon object that needs to be disposed of when the character is finished with it.
-        //Implement IDisposable in the Weapon class and ensure that it releases its resources properly.
-        //Also, implement IDisposable in the Character class and dispose of the Weapon object when the character is disposed of.
+        public int Availablepoints
+        {
+            get
+            {
+                return _availablepoints;
+            }
+            set
+            {
+                if (value >= 0 && value <= 50)
+                {
+                    _availablepoints = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
-        //In the game simulation, whenever a Weapon is equipped to a Character, use the using keyword.
-        //This will ensure that the Weapon resources are properly released when the Character is done with it, even if an exception occurs.
 
-        //Task 7: Polymorphism with Interfaces and Abstract Classes
-        //Create a list of Character objects(containing Warrior and Mage instances).
-        //Make characters attack each other in turn.
-        //Create a list of ISkill objects(also Warrior and Mage instances) and make them use their skills.
-        //Monitor the characters' Health and AvailablePoints to see how they change through the actions.
+        public Character(string name, int health, int strength, int availablepoints)
+        {
+            Name = name;
+            Health = health;
+            Strength = strength;
+            Availablepoints = availablepoints;
+        }
 
-        //Again, remember to add checks to ensure Health, Strength, and other stats cannot go negative.
-        //A character can't use skills or attack if their Health is at 0.
+        public Character()
+        {
+            Name = "NOOB";
+            Health = 5;
+            Strength = 1;
+            Availablepoints = 5;
+        }
+
+        public virtual void Attack(Character C)
+        {
+
+        }
+
+    }
+
+    class Warrior : Character
+    {
+        private int _armor;
+
+        public int Armor
+        {
+            get
+            {
+                return _armor;  
+            }
+            set
+            {
+                if(value >= 0 && value <= 100)
+                {
+                    _armor = value;
+                }
+            }
+        }
+
+        public Warrior(string name, int health, int strength, int availablepoints, int armor) : base(name, health, strength, availablepoints)
+        {
+            Armor = armor;
+        }
+
+        public Warrior() : base() 
+        {
+            Armor = 1;
+        }
+
+        
+        public override void Attack(Character C)
+        {
+            if (Health <= 0)
+            {
+                Console.WriteLine("Can not attack while health is 0");
+            }
+            else
+            {
+                //bonus damage doubled          
+                if (Armor >= 20)
+                {
+                    C.Health = C.Health - Strength * 2;
+                    Console.WriteLine($"you did {Strength * 2} damage to {C.Name}");
+                }
+                //default damage
+                else
+                {
+                    C.Health = C.Health - Strength;
+                    Console.WriteLine($"you did {Strength} damage to {C.Name}");
+                }
+            }
+        }
+    }
+
+    class Mage : Character
+    {
+        private int _mana; 
+
+        public int Mana
+        {
+            get
+            {
+                return _mana;
+            }
+            set
+            {
+                if (value >= 0 && value <= 100)
+                {
+                    _mana = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
+
+            public Mage(string name, int health, int strength, int availablepoints, int mana) : base(name, health, strength, availablepoints)
+        {
+            _mana = mana;
+        }
+
+        public Mage() : base()
+        {
+            _mana = 5;
+        }
+
+        //Mage's ability to attack costs 10 mana
+        public override void Attack(Character C)
+        {
+            if (Health <= 0)
+            {
+                Console.WriteLine("Can not attack while health is 0");
+            }
+            else
+            {
+                if (Mana < 10)
+                {
+                    Console.WriteLine("Not enough mana");
+                }
+                else
+                {
+                    Mana = Mana - 10;
+                    C.Health = C.Health - Strength;
+                }
+            }
+        }
+        
+    }
+
+        
 }
