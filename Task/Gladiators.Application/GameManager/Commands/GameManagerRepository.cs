@@ -36,9 +36,9 @@ namespace Gladiators.Application.GameManager.Commands
                 }
                 Console.WriteLine($"Round {Rounds++}");
 
-                charOne.UseSkill(GetSkill(charOne, Rounds), charTwo);
+                charOne.UseSkill(GetSkill(charOne), charTwo);
 
-                charTwo.UseSkill(GetSkill(charTwo, Rounds), charOne);
+                charTwo.UseSkill(GetSkill(charTwo), charOne);
 
                 // Print the graph
                 Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
@@ -140,14 +140,14 @@ namespace Gladiators.Application.GameManager.Commands
             return result;
         }
 
-        private static BaseSkill GetSkill(Character character, int rounds)
+        private static BaseSkill GetSkill(Character character)
         {
             List<BaseSkill> activeSkills = character.Skills
                 .Where(x => x.IsActive && x.ManaCost <= character.Mana)
                 .ToList();
             //Activate disabled skills if last round activated was 5 rounds ago
             List<BaseSkill> disabledSkills = character.Skills
-                .Where(x => !x.IsActive && x.LastActivated + 5 <= rounds)
+                .Where(x => !x.IsActive && x.LastActivated + 5 <= Rounds)
                 .ToList();
 
             disabledSkills.ForEach(skill => skill.ActivateSkill());
