@@ -19,7 +19,8 @@
 
         //Task 5: Interface Implementation with Inheritance
         //Create another class Mage that also inherits from Character and implements the ISkill interface.
-        //Mage should have its own properties like Mana and a different implementation of UseSkill() - perhaps a spell that heals the character or increases their attack but also at the cost of AvailablePoints.
+        //Mage should have its own properties like Mana and a different implementation of UseSkill() - perhaps a spell that heals the character or 
+        increases their attack but also at the cost of AvailablePoints.
 
         //Task 6: Implementing IDisposable and using the 'using' keyword
         //Each Character has a Weapon object that needs to be disposed of when the character is finished with it.

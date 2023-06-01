@@ -16,9 +16,7 @@ namespace Task
         static void Main(string[] args)
         {
             Console.WriteLine("--Welcome to World Of Sharpcraft--");
-            Console.WriteLine("Every stats maximum is 100, except availablepoints which is 50");
-            Console.WriteLine("With available points you can increase your strength, mana, armor, health");
-
+          
         }
     }
 
@@ -58,7 +56,7 @@ namespace Task
             }
             set
             {
-                if (value >= 0 && value <= 100){
+                if (value >= 0 && value <= _availablepoints - _strength){
                     _health = value;
                 }
                 else
@@ -76,7 +74,7 @@ namespace Task
             }
             set
             {
-                if (value >= 0 && value <= 100)
+                if (value >= 0 && value <= _availablepoints - _health)
                 {
                     _strength = value;
                 }
@@ -95,7 +93,7 @@ namespace Task
             }
             set
             {
-                if (value >= 0 && value <= 50)
+                if (value >= 0 && _health + _strength <= value)
                 {
                     _availablepoints = value;
                 }
@@ -118,8 +116,8 @@ namespace Task
         public Character()
         {
             Name = "NOOB";
-            Health = 5;
-            Strength = 1;
+            Health = 3;
+            Strength = 2;
             Availablepoints = 5;
         }
 
@@ -128,11 +126,17 @@ namespace Task
 
         }
 
+        public virtual void Stats()
+        {
+
+        }
+
     }
 
-    class Warrior : Character
+    class Warrior : Character, Iskill
     {
         private int _armor;
+        private int SkillUseCount = 1;
 
         public int Armor
         {
@@ -171,22 +175,45 @@ namespace Task
                 //bonus damage doubled          
                 if (Armor >= 20)
                 {
-                    C.Health = C.Health - Strength * 2;
+                    C.Health = C.Health - Strength/5 * 2;
                     Console.WriteLine($"you did {Strength * 2} damage to {C.Name}");
                 }
                 //default damage
                 else
                 {
-                    C.Health = C.Health - Strength;
+                    C.Health = C.Health - Strength/5;
                     Console.WriteLine($"you did {Strength} damage to {C.Name}");
                 }
             }
         }
+        //increases available points to increase attack and armor, you can use it only 3 times
+        public void UseSkill()
+        {
+            if(SkillUseCount > 3)
+            {
+                Console.WriteLine("You already used your skill move 3 times");
+            }
+            else
+            {
+                Availablepoints += 10;
+                Armor += 5;
+                Health += 5;
+                Console.WriteLine($"Your armor increased by 5 points and strength by 5. Skill used: {SkillUseCount} times. {3 - SkillUseCount} uses left");
+            }
+            SkillUseCount++;
+        }
+
+        public override void Stats()
+        {
+            Console.WriteLine("Your Stats Now:");
+            Console.WriteLine($"Health : {Health} Strength : {Strength} Armor : {Armor}");
+        }
     }
 
-    class Mage : Character
+    class Mage : Character, Iskill
     {
-        private int _mana; 
+        private int _mana;
+        private int SkillUseCount;
 
         public int Mana
         {
@@ -233,12 +260,36 @@ namespace Task
                 else
                 {
                     Mana = Mana - 10;
-                    C.Health = C.Health - Strength;
+                    C.Health = C.Health - Strength/5;
+                    Console.WriteLine($"you did {Strength/5} damage to {C.Name}");
                 }
             }
         }
-        
-    }
+        // for mage +15 availablepoints, 10 mana 5 strength
+        public void UseSkill()
+        {
+            if (SkillUseCount > 3)
+            {
+                Console.WriteLine("You already used your skill move 3 times");
+            }
+            else
+            {
+                Availablepoints += 15;
+                Mana += 10;
+                Strength += 5;
+                Console.WriteLine($"Your mana increased by 10 points and strength by 5. Skill used: {SkillUseCount} times. {3 - SkillUseCount} uses left");
+            }
+            SkillUseCount++;
+        }
 
-        
+        public override void Stats()
+        {
+            Console.WriteLine("Your Stats Now:");
+            Console.WriteLine($"Health : {Health} Strength : {Strength} Mana : {Mana}");
+        }
+    }
+    interface Iskill
+    {
+        void UseSkill();
+    }
 }
