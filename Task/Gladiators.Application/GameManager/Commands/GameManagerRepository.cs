@@ -12,16 +12,10 @@ namespace Gladiators.Application.GameManager.Commands
 
         public ResponseModel Fight(Character charOne, Character charTwo)
         {
-            PrintCharacterGraph(charOne, charTwo);
+            PrintCharacterGraph(charOne, charTwo, "Press Enter to start the fight...");
 
             while (true)
             {
-                if (Rounds == 1)
-                {
-                    Console.WriteLine("Press Enter to start the fight...");
-                    Console.ReadLine();
-                }
-
                 if (charOne.IsDraw(charTwo))
                 {
                     return GameOver(character: null, GameOverEnum.Draw);
@@ -40,23 +34,22 @@ namespace Gladiators.Application.GameManager.Commands
                 PerformTurn(charOne, charTwo);
                 PerformTurn(charTwo, charOne);
 
-                PrintCharacterGraph(charOne, charTwo);
-
-                Console.WriteLine("Press Enter to continue to the next turn...");
-                Console.ReadLine();
+                PrintCharacterGraph(charOne, charTwo, "Press Enter to continue to the next turn...");
 
                 charOne.RegenManaAndHealth();
                 charTwo.RegenManaAndHealth();
             }
         }
         #region Private Methods
-        private void PrintCharacterGraph(Character charOne, Character charTwo)
+        private void PrintCharacterGraph(Character charOne, Character charTwo, string text)
         {
-            if (Rounds % 5 == 0)
-            {
-                Console.Clear();
-            }
             Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
+            Console.WriteLine(text);
+            Console.ReadLine();
+            //if (Rounds % 5 == 0)
+            //{
+            //    Console.Clear();
+            //}
         }
 
         private void PerformTurn(Character attacker, Character target)
@@ -67,7 +60,14 @@ namespace Gladiators.Application.GameManager.Commands
             }
             else
             {
-                Console.WriteLine($"{attacker.Name} is stunned! {attacker.StunDuration} Rounds are left! \n");
+                if (attacker.StunDuration > 0)
+                {
+                    Console.WriteLine($"{attacker.Name} is stunned! {attacker.StunDuration} Rounds are left!\n");
+                }
+                else
+                {
+                    Console.WriteLine($"{attacker.Name} will attack next round.\n");
+                }
             }
         }
 

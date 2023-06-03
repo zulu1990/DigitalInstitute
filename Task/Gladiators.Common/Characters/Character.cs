@@ -110,6 +110,18 @@ namespace Gladiators.Common.Characters
             return false;
         }
 
+        public bool RollForCritical()
+        {
+            // Calculate the crit rate based on character stats or other factors
+            double critRate = (double)CritRate / 100; // Example: 5 / 100 5% crit rate
+
+            // Roll a random number between 0 and 1
+            double roll = new Random().NextDouble();
+
+            // Check if the roll is within the crit rate
+            return roll <= critRate;
+        }
+
         #endregion
     }
 }

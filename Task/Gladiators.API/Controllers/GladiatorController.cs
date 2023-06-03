@@ -63,7 +63,14 @@ namespace Gladiators.API.Controllers
                         character.Strength,
                         character.Vigor);
                 case CharacterClassesEnum.Archer:
-                    break;
+                    return new Archer
+                        (character.Name,
+                        character.Armor,
+                        character.Crit,
+                        character.Dexterity,
+                        character.Dexterity,
+                        character.Strength,
+                        character.Vigor);
             }
             return null;
         }

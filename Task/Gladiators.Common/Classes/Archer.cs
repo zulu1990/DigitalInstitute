@@ -1,6 +1,7 @@
 ﻿using Gladiators.Common.Characters;
 using Gladiators.Common.Characters.Enum;
 using Gladiators.Common.SkillContracts;
+using Gladiators.Common.Skills.Archer;
 
 namespace Gladiators.Common.Classes
 {
@@ -19,7 +20,9 @@ namespace Gladiators.Common.Classes
             Vigor = vigor;
 
             Skills = new List<BaseSkill>() {
-
+                new DoubleDamage(),
+                new HeadShot(),
+                new Parasite()
             };
 
             CalculateStats();
@@ -55,28 +58,38 @@ namespace Gladiators.Common.Classes
         #region Actions
         public override void Attack(Character target)
         {
-            int dmgToTarget = target is Mage ? PhysicalDamage + MagicalDamage : PhysicalDamage;
+            int damageToTarget = target is Mage ? PhysicalDamage + MagicalDamage : PhysicalDamage;
 
             if (PhysicalDamage <= target.Armor * 2)
             {
-                target.Armor -= dmgToTarget;
+                target.Armor -= damageToTarget;
             }
             else
             {
                 if (target.Armor > 0)
                 {
-                    dmgToTarget = Math.Abs(target.Armor * 2 - PhysicalDamage);
-                    target.Armor -= dmgToTarget / 2;
-                    target.Health -= dmgToTarget;
+                    damageToTarget = Math.Abs(target.Armor * 2 - PhysicalDamage);
+                    target.Armor -= damageToTarget / 2;
+                    target.Health -= damageToTarget;
                 }
                 else
                 {
                     target.Armor = 0;
-                    target.Health -= dmgToTarget;
+                    target.Health -= damageToTarget;
                 }
             }
 
-            Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {dmgToTarget} targets health is {target.Health} \n");
+            // Check for critical damage
+            bool isCritical = RollForCritical();
+            if (isCritical)
+            {
+                target.Health -= CritDamage;
+                Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {damageToTarget} damage. Critical hit! Target's health is {target.Health} (Critical Damage: {CritDamage})  \n");
+            }
+            else
+            {
+                Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {damageToTarget} damage. Target's health is {target.Health} \n");
+            }
 
         }
 
