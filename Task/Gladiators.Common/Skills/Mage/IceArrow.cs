@@ -9,7 +9,8 @@ namespace Gladiators.Common.Skills.Mage
     {
         const string name = "Ice Arrow";
         const int manaCost = 10;
-        const int value = 15;
+        const int value = 30;
+        const int stunDuration = 4;
         public IceArrow() : base(name, manaCost, value) { }
 
         public override void Use(Character attacker, Character target)
@@ -19,7 +20,9 @@ namespace Gladiators.Common.Skills.Mage
 
             int totalDamage = GetTotalDamage(attacker, target);
 
-            Console.WriteLine($"Defender {target.Name}. Old defender health: {target.Health}. New defender health: {target.Health -= totalDamage}");
+            target.StunDuration = stunDuration;
+
+            Console.WriteLine($"Defender {target.Name}. Old defender health: {target.Health}. New defender health: {target.Health -= totalDamage} \n");
         }
         protected override int GetTotalDamage(Character attacker, Character target)
         {

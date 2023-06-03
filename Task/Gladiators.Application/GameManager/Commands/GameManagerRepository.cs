@@ -12,16 +12,16 @@ namespace Gladiators.Application.GameManager.Commands
 
         public ResponseModel Fight(Character charOne, Character charTwo)
         {
+            PrintCharacterGraph(charOne, charTwo);
+
             while (true)
             {
                 if (Rounds == 1)
                 {
-                    Console.Clear();
-                    // Print the graph
-                    Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
                     Console.WriteLine("Press Enter to start the fight...");
                     Console.ReadLine();
                 }
+
                 if (charOne.IsDraw(charTwo))
                 {
                     return GameOver(character: null, GameOverEnum.Draw);
@@ -34,20 +34,40 @@ namespace Gladiators.Application.GameManager.Commands
                 {
                     return GameOver(character: charOne, GameOverEnum.PlayerTwoWon);
                 }
-                Console.WriteLine($"Round {Rounds++}");
 
-                charOne.UseSkill(GetSkill(charOne), charTwo);
+                Console.WriteLine($"Round {Rounds++} \n");
 
-                charTwo.UseSkill(GetSkill(charTwo), charOne);
+                PerformTurn(charOne, charTwo);
+                PerformTurn(charTwo, charOne);
 
-                // Print the graph
-                Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
+                PrintCharacterGraph(charOne, charTwo);
 
                 Console.WriteLine("Press Enter to continue to the next turn...");
                 Console.ReadLine();
 
                 charOne.RegenManaAndHealth();
                 charTwo.RegenManaAndHealth();
+            }
+        }
+        #region Private Methods
+        private void PrintCharacterGraph(Character charOne, Character charTwo)
+        {
+            if (Rounds % 5 == 0)
+            {
+                Console.Clear();
+            }
+            Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
+        }
+
+        private void PerformTurn(Character attacker, Character target)
+        {
+            if (!attacker.IsStunned())
+            {
+                attacker.UseSkill(GetSkill(attacker), target);
+            }
+            else
+            {
+                Console.WriteLine($"{attacker.Name} is stunned! {attacker.StunDuration} Rounds are left! \n");
             }
         }
 
@@ -110,7 +130,7 @@ namespace Gladiators.Application.GameManager.Commands
         private ResponseModel GameOver(Character character, GameOverEnum gameOverEnum)
         {
             Rounds = 1;
-            ResponseModel result = new ();
+            ResponseModel result = new();
             switch (gameOverEnum)
             {
                 case GameOverEnum.Draw:
@@ -158,7 +178,7 @@ namespace Gladiators.Application.GameManager.Commands
             if (activeSkillsCount == 0)
                 return null;
 
-            Random random = new ();
+            Random random = new();
             int nullChance = activeSkillsCount - 1;
             int skillChance = 1;
 
@@ -172,5 +192,7 @@ namespace Gladiators.Application.GameManager.Commands
             activeSkills[randomIndex].LastActivated = Rounds;
             return activeSkills[randomIndex];
         }
+        #endregion
+
     }
 }

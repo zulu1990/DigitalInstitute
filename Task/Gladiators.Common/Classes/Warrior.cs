@@ -58,31 +58,28 @@ namespace Gladiators.Common.Classes
         #region Actions
         public override void Attack(Character target)
         {
-            int dmgToTarget = PhysicalDamage;
-            if (target is Warrior warriorTarget)
+            int dmgToTarget = target is Archer ? PhysicalDamage + MagicalDamage : PhysicalDamage;
+
+            if (PhysicalDamage <= target.Armor * 2)
             {
-                if (PhysicalDamage <= warriorTarget.Armor * 2)
+                target.Armor -= dmgToTarget;
+            }
+            else
+            {
+                if (target.Armor > 0)
                 {
-                    warriorTarget.Armor -= dmgToTarget;
+                    dmgToTarget = Math.Abs(target.Armor * 2 - PhysicalDamage);
+                    target.Armor -= dmgToTarget / 2;
+                    target.Health -= dmgToTarget;
                 }
                 else
                 {
-                    if (warriorTarget.Armor > 0)
-                    {
-                        dmgToTarget = Math.Abs(warriorTarget.Armor * 2 - PhysicalDamage);
-                        warriorTarget.Armor -= dmgToTarget / 2;
-                        warriorTarget.Health -= dmgToTarget;
-                    }
-                    else
-                    {
-                        warriorTarget.Armor = 0;
-                        warriorTarget.Health -= dmgToTarget;
-                    }
-
+                    target.Armor = 0;
+                    target.Health -= dmgToTarget;
                 }
-
-                Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {dmgToTarget} targets health is {warriorTarget.Health}");
             }
+
+            Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {dmgToTarget} targets health is {target.Health} \n");
         }
 
         public override void UseSkill(BaseSkill skill, Character target)

@@ -9,7 +9,7 @@ namespace Gladiators.Common.Skills.Warrior
     {
         const string name = "Fire Sword";
         const int manaCost = 3;
-        const int value = 20;
+        const int value = 15;
         public FireSword() : base(name, manaCost, value) { }
 
         public override void Use(Character attacker, Character target)
@@ -21,7 +21,7 @@ namespace Gladiators.Common.Skills.Warrior
             int totalDamage = GetTotalDamage(attacker, target);
 
             Console.WriteLine($"Attacker {attacker.Name} used {Name} old Damage is {attacker.PhysicalDamage} new Damage is {attacker.PhysicalDamage + totalDamage}");
-            Console.WriteLine($"Defender {target.Name}. Old defender health: {target.Health}. New defender health: {target.Health -= attacker.PhysicalDamage + totalDamage}");
+            Console.WriteLine($"Defender {target.Name}. Old defender health: {target.Health}. New defender health: {target.Health -= attacker.PhysicalDamage + totalDamage} \n");
         }
 
         protected override int GetTotalDamage(Character attacker, Character target)

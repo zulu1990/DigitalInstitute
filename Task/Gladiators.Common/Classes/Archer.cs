@@ -1,16 +1,15 @@
 ﻿using Gladiators.Common.Characters;
 using Gladiators.Common.Characters.Enum;
 using Gladiators.Common.SkillContracts;
-using Gladiators.Common.Skills.Mage;
 
 namespace Gladiators.Common.Classes
 {
-    public class Mage : Character
+    public class Archer : Character
     {
-        public Mage(string name, int armor, int crit, int dexterity, int intelligence, int strength, int vigor) : base()
+        public Archer(string name, int armor, int crit, int dexterity, int intelligence, int strength, int vigor) : base()
         {
-            Class = CharacterClassesEnum.Mage;
-            SkillCooldown = 2;
+            Class = CharacterClassesEnum.Warrior;
+            SkillCooldown = 3;
             Name = name;
             Armor = armor;
             Crit = crit;
@@ -20,9 +19,7 @@ namespace Gladiators.Common.Classes
             Vigor = vigor;
 
             Skills = new List<BaseSkill>() {
-                new Earthshock(),
-                new ShockWave(),
-                new IceArrow()
+
             };
 
             CalculateStats();
@@ -33,7 +30,7 @@ namespace Gladiators.Common.Classes
         protected override void CalculateDamage()
             => PhysicalDamage = Strength;
         protected override void CalculateMagicalDamage()
-            => MagicalDamage = Intelligence + Intelligence / 2 + Intelligence * 2;
+            => MagicalDamage = Intelligence;
 
         protected override void CalculateHealth()
             => Health = Strength * 100;
@@ -42,23 +39,23 @@ namespace Gladiators.Common.Classes
             => HealthRegen = Vigor;
 
         protected override void CalculateMana()
-            => Mana = Intelligence * 2 * 50;
+            => Mana = Intelligence;
 
         protected override void CalculateManaRegen()
-            => ManaRegen = Dexterity + 10;
+            => ManaRegen = Dexterity;
 
         protected override void CalculateCritRate()
-            => CritRate = 5;
+            => CritRate = 25;
 
         protected override void CalculateCritDamage()
-            => CritDamage = PhysicalDamage * 10;
+            => CritDamage = PhysicalDamage * 20;
 
         #endregion
 
         #region Actions
         public override void Attack(Character target)
         {
-            int dmgToTarget = target is Warrior ? PhysicalDamage + MagicalDamage : PhysicalDamage;
+            int dmgToTarget = target is Mage ? PhysicalDamage + MagicalDamage : PhysicalDamage;
 
             if (PhysicalDamage <= target.Armor * 2)
             {
@@ -80,11 +77,12 @@ namespace Gladiators.Common.Classes
             }
 
             Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {dmgToTarget} targets health is {target.Health} \n");
+
         }
 
         public override void UseSkill(BaseSkill skill, Character target)
         {
-            if(Mana >= skill?.ManaCost)
+            if (Mana >= skill?.ManaCost)
             {
                 skill.Use(this, target);
                 return;
@@ -92,7 +90,9 @@ namespace Gladiators.Common.Classes
             Attack(target);
             return;
         }
-
         #endregion
+
     }
+
 }
+

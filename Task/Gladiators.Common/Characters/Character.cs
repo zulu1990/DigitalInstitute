@@ -16,6 +16,7 @@ namespace Gladiators.Common.Characters
 
         private bool timeToRegen = true;
         #endregion
+        public int StunDuration;
         public CharacterClassesEnum Class { get; protected set; }
         public int SkillCooldown { get; protected set; }
         public int Health { get; set; }
@@ -100,6 +101,13 @@ namespace Gladiators.Common.Characters
                 timeToRegen = true;
             }
 
+        }
+
+        public bool IsStunned()
+        {
+            if(StunDuration-- > 0)
+                return true;
+            return false;
         }
 
         #endregion

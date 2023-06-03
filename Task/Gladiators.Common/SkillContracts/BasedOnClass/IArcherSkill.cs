@@ -1,6 +1,6 @@
 ﻿namespace Gladiators.Common.SkillContracts.BasedOnClass
 {
-    public interface IArcherSkil
+    public interface IArcherSkill
     {
     }
 }
