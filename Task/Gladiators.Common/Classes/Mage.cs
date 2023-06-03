@@ -1,4 +1,5 @@
 ﻿using Gladiators.Common.Characters;
+using Gladiators.Common.Characters.Enum;
 using Gladiators.Common.SkillContracts;
 using Gladiators.Common.Skills.Mage;
 
@@ -8,6 +9,8 @@ namespace Gladiators.Common.Classes
     {
         public Mage(string name, int armor, int crit, int dexterity, int intelligence, int strength, int vigor) : base()
         {
+            Class = CharacterClassesEnum.Mage;
+            SkillCooldown = 2;
             Name = name;
             Armor = armor;
             Crit = crit;
@@ -17,7 +20,9 @@ namespace Gladiators.Common.Classes
             Vigor = vigor;
 
             Skills = new List<BaseSkill>() {
-                new Earthshock()
+                new Earthshock(),
+                new ShockWave(),
+                new IceArrow()
             };
 
             CalculateStats();
@@ -27,6 +32,8 @@ namespace Gladiators.Common.Classes
 
         protected override void CalculateDamage()
             => PhysicalDamage = Strength;
+        protected override void CalculateMagicalDamage()
+            => MagicalDamage = Intelligence + Intelligence / 2 + Intelligence * 2;
 
         protected override void CalculateHealth()
             => Health = Strength * 100;
@@ -35,13 +42,13 @@ namespace Gladiators.Common.Classes
             => HealthRegen = Vigor;
 
         protected override void CalculateMana()
-            => Mana = Intelligence * 2;
+            => Mana = Intelligence * 2 * 50;
 
         protected override void CalculateManaRegen()
             => ManaRegen = Dexterity + 10;
 
         protected override void CalculateCritRate()
-            => CritRate = 0;
+            => CritRate = 5;
 
         protected override void CalculateCritDamage()
             => CritDamage = PhysicalDamage * 10;
@@ -49,33 +56,46 @@ namespace Gladiators.Common.Classes
         #endregion
 
         #region Actions
-        public override int Attack(Character target)
+        public override void Attack(Character target)
         {
-            int dmgToTarget;
+            int dmgToTarget = PhysicalDamage;
             if (target is Warrior warriorTarget)
             {
-                dmgToTarget = PhysicalDamage - warriorTarget.Armor * 2;
-                warriorTarget.Health -= dmgToTarget;
+                if (PhysicalDamage <= warriorTarget.Armor * 2)
+                {
+                    warriorTarget.Armor -= dmgToTarget;
+                }
+                else
+                {
+                    if (warriorTarget.Armor > 0)
+                    {
+                        dmgToTarget = Math.Abs(warriorTarget.Armor * 2 - PhysicalDamage);
+                        warriorTarget.Armor -= dmgToTarget / 2;
+                        warriorTarget.Health -= dmgToTarget;
+                    }
+                    else
+                    {
+                        warriorTarget.Armor = 0;
+                        warriorTarget.Health -= dmgToTarget;
+                    }
+
+                }
+
                 Console.WriteLine($"Attacker {Name} used normal attack on {target.Name} with {dmgToTarget} targets health is {warriorTarget.Health}");
-                return dmgToTarget;
             }
-            return 0;
         }
 
         public override void UseSkill(BaseSkill skill, Character target)
         {
-            switch (this)
+            if(Mana >= skill?.ManaCost)
             {
-                case Mage attacker when attacker.Mana >= skill?.ManaCost:
-                    skill.Use(attacker, target);
-                    attacker.Mana -= skill.ManaCost;
-                    break;
-                default:
-                    // Attacker is not a Warrior or does not have enough mana, use normal attack
-                    Attack(target);
-                    break;
+                skill.Use(this, target);
+                return;
             }
+            Attack(target);
+            return;
         }
+
         #endregion
     }
 }

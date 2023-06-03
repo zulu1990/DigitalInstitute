@@ -3,14 +3,14 @@ using Gladiators.Common.Characters.Enum;
 using Gladiators.Common.SkillContracts;
 using Gladiators.Common.SkillContracts.BasedOnClass;
 
-namespace Gladiators.Common.Skills.Warrior
+namespace Gladiators.Common.Skills.Mage
 {
-    public class IceSpear : BaseSkill, IWarriorSkill
+    public class ShockWave : BaseSkill, IMageSkill
     {
-        const string name = "Ice Spear";
-        const int manaCost = 2;
-        const int value = 10;
-        public IceSpear() : base(name, manaCost, value) { }
+        const string name = "Shock Wave";
+        const int manaCost = 30;
+        const int value = 30;
+        public ShockWave() : base(name, manaCost, value) { }
 
         public override void Use(Character attacker, Character target)
         {
@@ -20,8 +20,7 @@ namespace Gladiators.Common.Skills.Warrior
 
             int totalDamage = GetTotalDamage(attacker, target);
 
-            Console.WriteLine($"Attacker {attacker.Name} used {Name} old Damage is {attacker.PhysicalDamage} new Damage is {attacker.PhysicalDamage + totalDamage}");
-            Console.WriteLine($"Defender {target.Name}. Old defender health: {target.Health}. New defender health: {target.Health -= attacker.PhysicalDamage + totalDamage}");
+            Console.WriteLine($"Defender {target.Name}. Old defender health: {target.Health}. New defender health: {target.Health -= totalDamage}");
         }
 
         protected override int GetTotalDamage(Character attacker, Character target)

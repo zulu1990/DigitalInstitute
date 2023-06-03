@@ -1,4 +1,5 @@
 ﻿using Gladiators.Common.Characters.Base;
+using Gladiators.Common.Characters.Enum;
 using Gladiators.Common.SkillContracts;
 
 namespace Gladiators.Common.Characters
@@ -15,7 +16,8 @@ namespace Gladiators.Common.Characters
 
         private bool timeToRegen = true;
         #endregion
-
+        public CharacterClassesEnum Class { get; protected set; }
+        public int SkillCooldown { get; protected set; }
         public int Health { get; set; }
         protected int HealthRegen { get; set; }
 
@@ -30,12 +32,13 @@ namespace Gladiators.Common.Characters
 
         public List<BaseSkill> Skills { get; set; }
 
-        public abstract int Attack(Character target);
+        public abstract void Attack(Character target);
 
         #region Protected abstracts
 
         protected abstract void CalculateHealth();
         protected abstract void CalculateDamage();
+        protected abstract void CalculateMagicalDamage();
         protected abstract void CalculateMana();
         protected abstract void CalculateHealthRegen();
         protected abstract void CalculateManaRegen();
@@ -48,6 +51,8 @@ namespace Gladiators.Common.Characters
         protected void CalculateStats()
         {
             CalculateDamage();
+            CalculateMagicalDamage();
+
             CalculateCritDamage();
             CalculateCritRate();
 
@@ -81,25 +86,20 @@ namespace Gladiators.Common.Characters
         {
             return !IsAlive() && !opponent.IsAlive();
         }
-        public void DecreaseManaPoints(int manaCost)
-        {
-            Mana -= manaCost;
-        }
 
         public void RegenManaAndHealth()
         {
             if (timeToRegen)
             {
-                if (Health < maxHealth)
-                    Health += HealthRegen;
-                if (Mana < maxMana)
-                    Mana += ManaRegen;
+                Health = Math.Min(Health + HealthRegen, maxHealth);
+                Mana = Math.Min(Mana + ManaRegen, maxMana);
                 timeToRegen = false;
             }
             else
             {
                 timeToRegen = true;
             }
+
         }
 
         #endregion

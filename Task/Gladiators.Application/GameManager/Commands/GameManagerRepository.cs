@@ -8,7 +8,7 @@ namespace Gladiators.Application.GameManager.Commands
 {
     public class GameManagerRepository : IGameManagerRepository
     {
-        public static int Rounds { get; set; } = 1;
+        public int Rounds { get; set; } = 1;
 
         public ResponseModel Fight(Character charOne, Character charTwo)
         {
@@ -107,7 +107,7 @@ namespace Gladiators.Application.GameManager.Commands
             return sb;
         }
 
-        private static ResponseModel GameOver(Character character, GameOverEnum gameOverEnum)
+        private ResponseModel GameOver(Character character, GameOverEnum gameOverEnum)
         {
             Rounds = 1;
             ResponseModel result = new ();
@@ -140,29 +140,30 @@ namespace Gladiators.Application.GameManager.Commands
             return result;
         }
 
-        private static BaseSkill GetSkill(Character character)
+        private BaseSkill GetSkill(Character character)
         {
             List<BaseSkill> activeSkills = character.Skills
                 .Where(x => x.IsActive && x.ManaCost <= character.Mana)
                 .ToList();
-            //Activate disabled skills if last round activated was 5 rounds ago
+
+            //Activate disabled skills if last round activated was 5 rounds ago warrior 2 rounds age if mage
             List<BaseSkill> disabledSkills = character.Skills
-                .Where(x => !x.IsActive && x.LastActivated + 5 <= Rounds)
+                .Where(x => !x.IsActive && x.LastActivated + character.SkillCooldown <= Rounds)
                 .ToList();
 
-            disabledSkills.ForEach(skill => skill.ActivateSkill());
+            disabledSkills?.ForEach(skill => skill.ActivateSkill());
 
             int activeSkillsCount = activeSkills.Count;
 
             if (activeSkillsCount == 0)
                 return null;
 
-            var random = new Random();
-            var nullChance = activeSkillsCount - 1;
-            var skillChance = 1;
+            Random random = new ();
+            int nullChance = activeSkillsCount - 1;
+            int skillChance = 1;
 
-            var totalChances = nullChance + skillChance;
-            var randomIndex = random.Next(1, totalChances + 1);
+            int totalChances = nullChance + skillChance;
+            int randomIndex = random.Next(1, totalChances + 1);
 
             if (randomIndex <= nullChance)
                 return null;
