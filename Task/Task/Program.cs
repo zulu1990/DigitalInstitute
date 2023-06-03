@@ -19,43 +19,220 @@ namespace Task
     }
 
 
-        //Task 1: Classes and Constructors
-        //Create a class Character with properties like Name, Health, Strength, and AvailablePoints.
-        //Implement two constructors - a default constructor that assigns some default values and another constructor which accepts values for the properties.
-        //The AvailablePoints property is the total points a player can distribute between Health and Strength.
+    public abstract class Character : IDisposable
+    {
+        public string Name { get; set; }
+        public int Health { get; set; }
+        public int Strength { get; set; }
+        public int AvailablePoints { get; set; }
+        public Weapon EquippedWeapon { get; set; }
+        public int Shield { get; set; }
+        public double CriticalStrikeChance { get; set; }
+        public double AttackMissChance { get; set; }
 
-        //Task 2: Inheritance and Method Overriding
-        //Create a derived class Warrior that inherits from the Character class.
-        //Add a new property Armor.Override the Attack() method to include a bonus damage when Armor is above a certain value.
+        protected Character()
+        {
+            Name = "Default";
+            Health = 100;
+            Strength = 10;
+            AvailablePoints = 10;
+            EquippedWeapon = null;
+            Shield = 0;
+            CriticalStrikeChance = 0;
+            AttackMissChance = 0;
+        }
 
-        //Task 3: Abstract Classes
-        //Refactor your Character class to be an abstract class, and make the Attack() method abstract.
-        //This method should now take another Character object as a parameter and reduce their Health based on the attacker's Strength.
+        protected Character(string name, int health, int strength, int availablePoints, int shield, double criticalStrikeChance, double attackMissChance)
+        {
+            Name = name;
+            Health = health;
+            Strength = strength;
+            AvailablePoints = availablePoints;
+            EquippedWeapon = null;
+            Shield = shield;
+            CriticalStrikeChance = criticalStrikeChance;
+            AttackMissChance = attackMissChance;
+        }
 
-        //Task 4: Introduction to Interfaces
-        //Create an interface ISkill with a method UseSkill().
-        //Implement this interface in the Warrior class with a skill that,
-        //for instance,
-        //increases Armor or Strength temporarily but at the cost of AvailablePoints.
+        public abstract void Attack(Character target);
 
-        //Task 5: Interface Implementation with Inheritance
-        //Create another class Mage that also inherits from Character and implements the ISkill interface.
-        //Mage should have its own properties like Mana and a different implementation of UseSkill() - perhaps a spell that heals the character or increases their attack but also at the cost of AvailablePoints.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-        //Task 6: Implementing IDisposable and using the 'using' keyword
-        //Each Character has a Weapon object that needs to be disposed of when the character is finished with it.
-        //Implement IDisposable in the Weapon class and ensure that it releases its resources properly.
-        //Also, implement IDisposable in the Character class and dispose of the Weapon object when the character is disposed of.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && EquippedWeapon != null)
+            {
+                EquippedWeapon.Dispose();
+            }
+        }
+    }
 
-        //In the game simulation, whenever a Weapon is equipped to a Character, use the using keyword.
-        //This will ensure that the Weapon resources are properly released when the Character is done with it, even if an exception occurs.
+    public class Warrior : Character, ISkill
+    {
+        public int Armor { get; set; }
 
-        //Task 7: Polymorphism with Interfaces and Abstract Classes
-        //Create a list of Character objects(containing Warrior and Mage instances).
-        //Make characters attack each other in turn.
-        //Create a list of ISkill objects(also Warrior and Mage instances) and make them use their skills.
-        //Monitor the characters' Health and AvailablePoints to see how they change through the actions.
+        public Warrior() : base()
+        {
+            Armor = 0;
+        }
 
-        //Again, remember to add checks to ensure Health, Strength, and other stats cannot go negative.
-        //A character can't use skills or attack if their Health is at 0.
+        public Warrior(string name, int health, int strength, int availablePoints, int shield, double criticalStrikeChance, double attackMissChance, int armor)
+            : base(name, health, strength, availablePoints, shield, criticalStrikeChance, attackMissChance)
+        {
+            Armor = armor;
+        }
+
+        public override void Attack(Character target)
+        {
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} can't attack because their health is at 0.");
+                return;
+            }
+
+            if (RandomGenerator.GetRandomDouble() <= AttackMissChance)
+            {
+                Console.WriteLine($"{Name} missed the attack on {target.Name}.");
+                return;
+            }
+
+            int baseDamage = Strength;
+            int bonusDamage = Armor > 50 ? 10 : 0;
+            int totalDamage = baseDamage + bonusDamage;
+
+            if (RandomGenerator.GetRandomDouble() <= CriticalStrikeChance)
+            {
+                totalDamage *= 2;
+                Console.WriteLine($"Critical strike! {Name} dealt double damage.");
+            }
+
+            totalDamage -= target.Shield;
+            totalDamage = Math.Max(0, totalDamage);
+
+            target.Health -= totalDamage;
+
+            Console.WriteLine($"{Name} attacked {target.Name} for {totalDamage} damage.");
+        }
+
+        public void UseSkill()
+        {
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} can't use a skill because their health is at 0.");
+                return;
+            }
+
+            if (AvailablePoints < 5)
+            {
+                Console.WriteLine($"{Name} doesn't have enough available points to use a skill.");
+                return;
+            }
+
+            Armor += 20;
+            AvailablePoints -= 5;
+
+            Console.WriteLine($"{Name} used a skill to increase Armor by 20. Current Armor: {Armor}");
+        }
+    }
+
+    public class Mage : Character, ISkill
+    {
+        public int Mana { get; set; }
+
+        public Mage() : base()
+        {
+            Mana = 100;
+        }
+
+        public Mage(string name, int health, int strength, int availablePoints, int shield, double criticalStrikeChance, double attackMissChance, int mana)
+            : base(name, health, strength, availablePoints, shield, criticalStrikeChance, attackMissChance)
+        {
+            Mana = mana;
+        }
+
+        public override void Attack(Character target)
+        {
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} can't attack because their health is at 0.");
+                return;
+            }
+
+            if (RandomGenerator.GetRandomDouble() <= AttackMissChance)
+            {
+                Console.WriteLine($"{Name} missed the attack on {target.Name}.");
+                return;
+            }
+
+            int baseDamage = Strength;
+
+            if (RandomGenerator.GetRandomDouble() <= CriticalStrikeChance)
+            {
+                baseDamage *= 2;
+                Console.WriteLine($"Critical strike! {Name} dealt double damage.");
+            }
+
+            baseDamage -= target.Shield;
+            baseDamage = Math.Max(0, baseDamage);
+
+            target.Health -= baseDamage;
+
+            Console.WriteLine($"{Name} attacked {target.Name} for {baseDamage} damage.");
+        }
+
+        public void UseSkill()
+        {
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} can't use a skill because their health is at 0.");
+                return;
+            }
+
+            if (AvailablePoints < 5 || Mana < 20)
+            {
+                Console.WriteLine($"{Name} doesn't have enough available points or mana to use a skill.");
+                return;
+            }
+
+            Mana -= 20;
+            AvailablePoints -= 5;
+            Strength += 10;
+
+            Console.WriteLine($"{Name} used a skill to increase Strength by 10. Current Strength: {Strength}");
+        }
+    }
+
+    public interface ISkill
+    {
+        void UseSkill();
+    }
+
+    public class Weapon : IDisposable
+    {
+        public string Name { get; set; }
+
+        public Weapon(string name)
+        {
+            Name = name;
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine($"Weapon {Name} has been disposed.");
+        }
+    }
+
+    public static class RandomGenerator
+    {
+        private static Random random = new Random();
+
+        public static double GetRandomDouble()
+        {
+            return random.NextDouble();
+        }
+    }
 }
