@@ -46,10 +46,10 @@ namespace Gladiators.Application.GameManager.Commands
             Console.WriteLine(BuildCharacterGraph(charOne, charTwo).ToString());
             Console.WriteLine(text);
             Console.ReadLine();
-            //if (Rounds % 5 == 0)
-            //{
-            //    Console.Clear();
-            //}
+            if (Rounds % 5 == 0)
+            {
+                Console.Clear();
+            }
         }
 
         private void PerformTurn(Character attacker, Character target)
