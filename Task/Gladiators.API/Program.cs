@@ -1,7 +1,7 @@
 using Gladiators.Application.GameManager.Commands;
 using Gladiators.Application.GameManager.Contracts;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 

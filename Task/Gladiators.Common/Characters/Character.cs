@@ -105,7 +105,7 @@ namespace Gladiators.Common.Characters
 
         public bool IsStunned()
         {
-            if(StunDuration-- > 0)
+            if (StunDuration-- > 0)
                 return true;
             return false;
         }

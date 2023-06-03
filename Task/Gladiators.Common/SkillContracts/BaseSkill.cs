@@ -5,7 +5,7 @@ namespace Gladiators.Common.SkillContracts
 {
     public abstract class BaseSkill
     {
-        protected BaseSkill(string name, int manaCost, int value) 
+        protected BaseSkill(string name, int manaCost, int value)
         {
             Name = name;
             ManaCost = manaCost;
@@ -17,7 +17,7 @@ namespace Gladiators.Common.SkillContracts
         public int Value { get; protected set; }
         public int LastActivated { get; set; }
 
-        public virtual void Use(Character attacker, Character target) 
+        public virtual void Use(Character attacker, Character target)
             => throw new NotImplementedException();
 
         public virtual void ActivateSkill()

@@ -93,7 +93,7 @@ namespace Gladiators.Common.Classes
 
         public override void UseSkill(BaseSkill skill, Character target)
         {
-            if(Mana >= skill?.ManaCost)
+            if (Mana >= skill?.ManaCost)
             {
                 skill.Use(this, target);
                 return;
