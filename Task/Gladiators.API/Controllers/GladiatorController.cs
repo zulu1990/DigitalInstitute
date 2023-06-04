@@ -29,7 +29,7 @@ namespace Gladiators.API.Controllers
         }
 
         [HttpPost("Fight-Characters")]
-        [SwaggerOperation("fight newly created characters to each other")]
+        [SwaggerOperation("fight newly created characters to each other (use max 25 points)")]
         public ResponseModel FightCharacters([FromBody] CharacterFightRequest fightRequest)
         {
             Character firstCharacter = CreateCharacter(fightRequest.CharacterOne);

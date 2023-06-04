@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IGameManagerRepository, GameManagerRepository>();
+builder.Services.AddSignalR();
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -30,7 +31,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
