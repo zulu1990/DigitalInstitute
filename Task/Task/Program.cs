@@ -43,4 +43,5 @@ namespace Task
     //and show how the items are always sorted when added to the collection.
 
     //Task 4 do as much practice as you can with generics
+    //I think you liked the previous assignment. try to appy generics to the previous RPG game ;)
 }
