@@ -44,4 +44,50 @@ namespace Task
 
     //Task 4 do as much practice as you can with generics
     //I think you liked the previous assignment. try to appy generics to the previous RPG game ;)
+
+    class Pair<T, U>
+    {
+        private T First { get; set; }
+        private U Second { get; set; }
+
+
+        public void SetValues(T first, U second)
+        {
+            this.First = first;
+            this.Second = second;
+        }
+
+        public (T, U) GetValues() => (First, Second);
+        public bool IsSame() => typeof(T) == typeof(U);
+
+    }
+
+
+
+    class SwapUtility
+    {
+        public static void Swap<T>(ref T first, ref T second) => (first, second) = (second, first);
+
+    }
+
+
+    class SortedCollection<T> where T : IComparable<T>
+    {
+        List<T> list = new List<T>();
+
+        public SortedCollection(T someItem, T enotherItem)  /// ??????????????????????????????
+        {
+
+        }
+
+        public void AddItem(T item)
+        {
+            list.Add(item);
+            list.Sort();
+        }
+
+        public T GettItem(int index) => list[index];
+
+
+    }
 }
