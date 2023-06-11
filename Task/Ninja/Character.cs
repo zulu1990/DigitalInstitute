@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Ninja
 {
-    public abstract class Character : IDisposable
+    public abstract class Character : IDisposable, ISkill
     {
         private bool disposedValue;
         private bool disposedValue1;
 
         public string Name { get; set; } = "Char";
-        public int Health { get; set; } = 100;
-        public int Strength { get; set; } = 10;
+        public int Health { get; set; } = 1000;
+        public int Strength { get; set; } = 100;
         public int AvailablePoints { get; set; } = 0;
 
         public Character()
@@ -30,7 +30,7 @@ namespace Ninja
             Strength = strength;
             AvailablePoints = availablePoints;
         }
-        public abstract void Attack(ref Character Character);
+        public abstract int Attack(ref Warrior warrior);
 
         protected virtual void Dispose(bool disposing)
         {
@@ -59,6 +59,26 @@ namespace Ninja
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        public int IncreaseArmor(ref int availablePoints)
+        {
+            if (availablePoints >= 20)
+            {
+                availablePoints -= 20;
+                return 1;
+            }
+            return 0;
+        }
+
+        public int IncreaseStrength(ref int availablePoints)
+        {
+            if (availablePoints >= 50)
+            {
+                availablePoints -= 50;
+                return 2;
+            }
+            return 0;
         }
     }
 }

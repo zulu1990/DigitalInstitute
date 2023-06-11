@@ -14,31 +14,16 @@ namespace Ninja
         /// </summary>
         /// <param name="availablePoints"></param>
         /// <returns></returns>
-        public virtual int IncreaseArmor(ref int availablePoints)
-        {
-            if (availablePoints >= 20)
-            {
-                int k = availablePoints / 20;
-                availablePoints -= k * 20;
-                return k;
-            }
-            return 0;
-        }
+        abstract int IncreaseArmor(ref int availablePoints);
+        
         /// <summary>
         /// Increase Strength. Cost is 50 points.
         /// </summary>
         /// <param name="availablePoints"></param>
         /// <returns></returns>
-        public virtual int IncreaseStrength(ref int availablePoints) 
-        {
-            if (availablePoints >= 50)
-            {
-                int k = availablePoints / 50;
-                availablePoints -= k * 50;
-                return k;
-            }
-            return 0;
-        }
+        abstract int IncreaseStrength(ref int availablePoints);
+          
+        
     }
 
 }

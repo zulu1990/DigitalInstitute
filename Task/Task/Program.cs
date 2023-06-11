@@ -47,15 +47,22 @@ namespace Task
         //Implement IDisposable in the Weapon class and ensure that it releases its resources properly.
         //Also, implement IDisposable in the Character class and dispose of the Weapon object when the character is disposed of.
 
-        //In the game simulation, whenever a Weapon is equipped to a Character, use the using keyword.
-        //This will ensure that the Weapon resources are properly released when the Character is done with it, even if an exception occurs.
+        /// ================================================>>>>>>>>>>>>>>
+
+        //In the game simulation, whenever a Weapon is equipped to a Character,
+        //use the using keyword.
+        //This will ensure that the Weapon resources are properly released
+        //when the Character is done with it, even if an exception occurs.
 
         //Task 7: Polymorphism with Interfaces and Abstract Classes
         //Create a list of Character objects(containing Warrior and Mage instances).
         //Make characters attack each other in turn.
-        //Create a list of ISkill objects(also Warrior and Mage instances) and make them use their skills.
-        //Monitor the characters' Health and AvailablePoints to see how they change through the actions.
+        //Create a list of ISkill objects(also Warrior and Mage instances)
+        //and make them use their skills.
+        //Monitor the characters' Health and AvailablePoints to see how they
+        //change through the actions.
 
-        //Again, remember to add checks to ensure Health, Strength, and other stats cannot go negative.
+        //Again, remember to add checks to ensure Health, Strength, and other
+        //stats cannot go negative.
         //A character can't use skills or attack if their Health is at 0.
 }
