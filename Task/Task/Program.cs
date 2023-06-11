@@ -18,31 +18,49 @@ namespace Task
             Pair<DateTime, decimal> pair2 = new Pair<DateTime, decimal>();
             pair2.SetValues(DateTime.Now, 34);
             Console.WriteLine(pair2.GetValues());
+
+
+            // test task 2
+            int a = 5;
+            int b = 10;
+            Console.WriteLine($"Before Swapping: a = {a}, b = {b}");
+            SwapUtility.Swap(ref a, ref b);
+            Console.WriteLine($"After Swapping: a = {a}, b = {b}");
+
+
+            var c = "The";
+            var d = "End";
+            Console.WriteLine($"Before Swapping: c = {c}, d = {d}");
+            SwapUtility.Swap <string> (ref c, ref d);
+            Console.WriteLine($"After Swapping: c = {c}, d = {d}");
+
+
+            //test task 3
+            SortedCollection<CustomClass> myClass1 = new SortedCollection<CustomClass>();
+            myClass1.AddItem(new CustomClass { MyProperty=3});
+            myClass1.AddItem(new CustomClass { MyProperty=10});
+            myClass1.AddItem(new CustomClass { MyProperty=2});
+            myClass1.AddItem(new CustomClass { MyProperty=5});
+            for(var i=0;i<myClass1.Count; i++)
+            {
+                Console.WriteLine(myClass1.GetItem(i));
+            }
+
+            Console.WriteLine(Environment.NewLine);
+            var value = myClass1.GetItem(2);
+            Console.WriteLine(value);
+            var value2 = myClass1.GetItem(10);
+            Console.WriteLine(value2);
         }
     }
 
 
-    public class Pair<T, U>
-    {
-        private T? First { get; set; }
-        private U? Second { get; set; }
-
-        public void SetValues(T first, U second)
-        {
-            First = first;
-            Second = second;
-        }
-        public (T, U) GetValues()
-        {
-            return (First, Second);
-        }
-    }
 
     //Task 1
     //Generic Classes:
     //Create a generic class named Pair<T, U>.This class should represent a pair of two different types.
     //It should have two properties - First and Second - to hold the pair of items.
-
+    
     //Include methods in the class:
 
     //SetValues(T first, U second): This method should set the values of First and Second.
