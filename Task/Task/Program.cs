@@ -8,9 +8,36 @@ namespace Task
     {
         static void Main(string[] args)
         {
+            // test Pair class for <int, string>
+            Pair<int, string> pair = new Pair<int, string>();
+            pair.SetValues(3, "Orange");
+            (int, string) tuplePair = pair.GetValues();
+            Console.WriteLine(tuplePair);
 
+            // test Pair class for types <DateTime, decimal>
+            Pair<DateTime, decimal> pair2 = new Pair<DateTime, decimal>();
+            pair2.SetValues(DateTime.Now, 34);
+            Console.WriteLine(pair2.GetValues());
         }
     }
+
+
+    public class Pair<T, U>
+    {
+        private T? First { get; set; }
+        private U? Second { get; set; }
+
+        public void SetValues(T first, U second)
+        {
+            First = first;
+            Second = second;
+        }
+        public (T, U) GetValues()
+        {
+            return (First, Second);
+        }
+    }
+
     //Task 1
     //Generic Classes:
     //Create a generic class named Pair<T, U>.This class should represent a pair of two different types.
@@ -22,7 +49,6 @@ namespace Task
     //GetValues(): This method should return a tuple of First and Second.
     //Test the Pair<T, U> class using different pair of data types(like integer and string, float and string etc.)
     //and demonstrate its functionality.
-
 
     //Task 2
     //Generic Methods:
