@@ -118,28 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Person2_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Person2_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Battle_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Battle_Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fire_Ball_Left1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fire_Ball_Left1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fire_Ball_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fire_Ball_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Person1_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Person1_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Weapon_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Weapon_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Fire_Ball_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fire_Ball_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Battle_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Battle_Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Fire_Ball_Right2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fire_Ball_Right2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Person2_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Person2_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Weapon_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Weapon_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Fire_Ball_Right1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fire_Ball_Right1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weapon_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Weapon_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Person1_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Person1_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Person2_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Person2_Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weapon_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Weapon_Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Person2_Right1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Person2_Right1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

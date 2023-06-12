@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Ninja
 {
     public class Weapon : IDisposable
     {
+        public static void AttackWithWeapon(Warrior attacker, Warrior defencer)
+        {
+            Random random = new Random();
+            double k = random.Next(30, 100) / 10;
+            int attakPoint = attacker.Level * (int)(attacker.Strength * k);
+            defencer.Health -= attakPoint;
+            attacker.AvailablePoints += attakPoint;
+        }
         private bool disposedValue;
 
         protected virtual void Dispose(bool disposing)

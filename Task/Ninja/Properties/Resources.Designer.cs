@@ -83,6 +83,56 @@ namespace Ninja.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fire_Ball_Left {
+            get {
+                object obj = ResourceManager.GetObject("Fire_Ball_Left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fire_Ball_Left1 {
+            get {
+                object obj = ResourceManager.GetObject("Fire_Ball_Left1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fire_Ball_Right {
+            get {
+                object obj = ResourceManager.GetObject("Fire_Ball_Right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fire_Ball_Right1 {
+            get {
+                object obj = ResourceManager.GetObject("Fire_Ball_Right1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fire_Ball_Right2 {
+            get {
+                object obj = ResourceManager.GetObject("Fire_Ball_Right2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Person1_Left {
             get {
                 object obj = ResourceManager.GetObject("Person1_Left", resourceCulture);
@@ -116,6 +166,16 @@ namespace Ninja.Properties {
         internal static System.Drawing.Bitmap Person2_Right {
             get {
                 object obj = ResourceManager.GetObject("Person2_Right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Person2_Right1 {
+            get {
+                object obj = ResourceManager.GetObject("Person2_Right1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

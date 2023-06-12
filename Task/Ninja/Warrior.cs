@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ninja
+﻿namespace Ninja
 {
     public class Warrior : Character, ISkill
     {
@@ -17,8 +11,8 @@ namespace Ninja
         public override int Attack(ref Warrior warrior)
         {
             Random random = new Random();
-            double k = random.Next(0, 10) / 10;
-            int attakPoint = Level * (int)(Strength * k);
+            double k = random.Next(10, 100);
+            int attakPoint = Level * (int)(Strength * k / 10);
             warrior.Health -= attakPoint;
             AvailablePoints += attakPoint;
             return attakPoint;
@@ -28,7 +22,7 @@ namespace Ninja
         /// </summary>
         public void IncreaseLevel()
         {
-            if(AvailablePoints >= 100)
+            if (AvailablePoints >= 100)
             {
                 Level++;
                 AvailablePoints -= 100;
@@ -36,12 +30,20 @@ namespace Ninja
                 Strength += 1;
             }
         }
-
+        public int IncreaseHealth(int availablePoints)
+        {
+            if (availablePoints >= 100)
+            {
+                AvailablePoints -= 100;
+                return 100;
+            }
+            return 0;
+        }
         public int IncreaseArmor(int availablePoints)
         {
             if (availablePoints >= 20)
             {
-                availablePoints -= 20;
+                AvailablePoints -= 20;
                 return 1;
             }
             return 0;
@@ -51,7 +53,7 @@ namespace Ninja
         {
             if (availablePoints >= 50)
             {
-                availablePoints -= 50;
+                AvailablePoints -= 50;
                 return 1;
             }
             return 0;
