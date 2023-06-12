@@ -1,9 +1,34 @@
-﻿namespace Task
+﻿using System.Text;
+using static Task.MyIntegerRange;
+
+namespace Task
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+
+            MyIntegerRange myInts = new MyIntegerRange(10, 45);
+            foreach (int ints in myInts)
+            {
+                Console.WriteLine(ints);
+
+            }
+            Console.WriteLine($"amount of numbers from 10 to 45: " + IntegerRangeEnumerator._count); // it won't work for task 2
+
+
+
+            Fibonacci f = new Fibonacci();
+
+            Console.WriteLine();
+            int i = 0;
+            foreach (int fib in f.FibonacciNumbers(9))
+            {
+                Console.WriteLine($"{i}: "+fib);
+                i++;
+            }
+
+
         }
         //Task 1: Simple IEnumerable and IEnumerator Implementation
         //Create a simple class MyIntegerRange that represents a range of integers and implements IEnumerable<int>.
