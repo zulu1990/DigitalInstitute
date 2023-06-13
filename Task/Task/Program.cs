@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-
+﻿
 namespace Task
 {
     internal class Program
@@ -11,8 +9,8 @@ namespace Task
             Advertisement advertiser1 = new Advertisement("Google ", 12000);
             Advertisement advertiser2 = new Advertisement("Microsoft", 20000);
             Advertisement advertiser3 = new Advertisement("Amazon", 10000);
-            Advertisement advertiser4 = new Advertisement("Apple", 70000);
-            Advertisement advertiser5 = new Advertisement("Meta", 800);
+            Advertisement advertiser4 = new Advertisement("Apple", 30000);
+            Advertisement advertiser5 = new Advertisement("Meta", 133300);
 
             CompanyPrice.Add(advertiser1.Advertiser, advertiser1.Price);
             CompanyPrice.Add(advertiser2.Advertiser, advertiser2.Price);
@@ -20,28 +18,49 @@ namespace Task
             CompanyPrice.Add(advertiser4.Advertiser, advertiser4.Price);
             CompanyPrice.Add(advertiser5.Advertiser, advertiser5.Price);
 
-            RandomAd(CompanyPrice);
+            List<string> listOfCompanies = new List<string>( RandomAd(CompanyPrice));
+
+            Console.WriteLine("Advertisement from:");
+            foreach (var company in listOfCompanies)
+            {
+                Console.WriteLine(company);
+            }
+
 
         
         }
 
-        public static string RandomAd<TKey>(IDictionary<TKey, decimal> dictionary)
+        public static IEnumerable<string> RandomAd<TKey>(IDictionary<TKey, decimal> dictionary)
         {
-            throw new ArgumentException();
+            decimal sumOfValues = dictionary.Values.Sum();
+            Random random = new Random();
+
+            // to select 2 advertisement
+            for(int i=0; i < 2; i++)
+            {
+                decimal randomValue = (decimal)random.NextDouble() * sumOfValues;
+                foreach(var ad in dictionary)
+                {
+                    randomValue -= ad.Value;
+                    if (randomValue <= 0)
+                    {
+                        yield return ad.Key.ToString();
+                        break;
+                    }
+                }
+            }
         }
 
         public class Advertisement 
         {
             public string Advertiser { get;set; }
-            public decimal Price { get; set; } // 
+            public decimal Price { get; set; } 
 
-            //Dictionary<string, decimal> CompanyPrice = new Dictionary<string, decimal>();
 
             public Advertisement(string advertiser, decimal price)
             {
                 Advertiser = advertiser;
                 Price = price;
-                //CompanyPrice.Add(advertiser, price);
             }
 
             public override string ToString()
