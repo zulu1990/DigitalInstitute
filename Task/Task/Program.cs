@@ -10,36 +10,39 @@ namespace Task
             Advertisement advertiser2 = new Advertisement("Microsoft", 20000);
             Advertisement advertiser3 = new Advertisement("Amazon", 10000);
             Advertisement advertiser4 = new Advertisement("Apple", 30000);
-            Advertisement advertiser5 = new Advertisement("Meta", 133300);
+            Advertisement advertiser5 = new Advertisement("Meta", 130000);
 
             CompanyPrice.Add(advertiser1.Advertiser, advertiser1.Price);
             CompanyPrice.Add(advertiser2.Advertiser, advertiser2.Price);
             CompanyPrice.Add(advertiser3.Advertiser, advertiser3.Price);
             CompanyPrice.Add(advertiser4.Advertiser, advertiser4.Price);
             CompanyPrice.Add(advertiser5.Advertiser, advertiser5.Price);
-
-            List<string> listOfCompanies = new List<string>( RandomAd(CompanyPrice));
-
+            
             Console.WriteLine("Advertisement from:");
-            foreach (var company in listOfCompanies)
+            foreach (var company in RandomAd(CompanyPrice,2))
+            {
+                Console.WriteLine(company);
+            }
+
+            Console.WriteLine("\nAdvertisement from:");
+            foreach (var company in RandomAdFromDifferentCompanies(CompanyPrice, 2))
             {
                 Console.WriteLine(company);
             }
 
 
-        
+
         }
 
-        public static IEnumerable<string> RandomAd<TKey>(IDictionary<TKey, decimal> dictionary)
+        public static IEnumerable<string> RandomAd<TKey>(IDictionary<TKey, decimal> dictionary, int count)
         {
             decimal sumOfValues = dictionary.Values.Sum();
             Random random = new Random();
 
-            // to select 2 advertisement
-            for(int i=0; i < 2; i++)
+            for (int i = 0; i < count; i++)
             {
                 decimal randomValue = (decimal)random.NextDouble() * sumOfValues;
-                foreach(var ad in dictionary)
+                foreach (var ad in dictionary)
                 {
                     randomValue -= ad.Value;
                     if (randomValue <= 0)
@@ -49,7 +52,39 @@ namespace Task
                     }
                 }
             }
+
+
+
         }
+
+        public static IEnumerable<string> RandomAdFromDifferentCompanies<TKey>(IDictionary<TKey, decimal> dictionary, int count)
+        {
+
+            decimal sumOfValues = dictionary.Values.Sum();
+            Random random = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                decimal randomValue = (decimal)random.NextDouble() * sumOfValues;
+                TKey selectedKey = default(TKey);
+                foreach (var ad in dictionary)
+                {
+                    randomValue -= ad.Value;
+                    if (randomValue <= 0)
+                    {
+                        selectedKey = ad.Key;
+                        yield return ad.Key.ToString();
+
+                        break;
+                    }
+                }
+
+                sumOfValues -= dictionary[selectedKey];
+                dictionary.Remove(selectedKey);
+
+            }
+
+        }
+
 
         public class Advertisement 
         {
