@@ -7,8 +7,6 @@
 
         }
     }
-
-
     //Task 1: Classes and Constructors
     //Create a class Character with properties like Name, Health, Strength, and AvailablePoints.
     //Implement two constructors - a default constructor that assigns some default values and another constructor which accepts values for the properties.
@@ -55,4 +53,5 @@
     //Again, remember to add checks to ensure Health, Strength, and other
     //stats cannot go negative.
     //A character can't use skills or attack if their Health is at 0.
+
 }

@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task", "Task\Task.csproj", "{FE683F03-F29E-46E4-83B5-AB91F62428C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninja", "Ninja\Ninja.csproj", "{D43613DF-BF28-490F-ACD4-4EE99CD53A42}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +22,16 @@ Global
 		{D43613DF-BF28-490F-ACD4-4EE99CD53A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D43613DF-BF28-490F-ACD4-4EE99CD53A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D43613DF-BF28-490F-ACD4-4EE99CD53A42}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3943F83B-C503-4F62-886C-CDB487520597} = {0FF2F1C7-9FE4-45D6-9890-1890BA80BAE6}
+		{DE37C227-94DF-496D-8195-CCA95893906D} = {64317DD8-D93E-47AC-9EA0-EF01DD8230E5}
+		{78214C85-CAAE-4BA9-8D12-069D3F771578} = {64317DD8-D93E-47AC-9EA0-EF01DD8230E5}
+		{2F25C62A-9AB2-43C9-838E-ACF80AA64624} = {0FF2F1C7-9FE4-45D6-9890-1890BA80BAE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9275BD47-9964-4B2E-B3D9-9308996AAA71}
