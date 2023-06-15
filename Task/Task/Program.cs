@@ -16,7 +16,6 @@
             { "Intel", 6000 }          // 10
         };
 
-        private static readonly int count = dictionary.Count;
         private const int bannerCount = 2;
 
         static void Main()
@@ -31,7 +30,7 @@
 
         private static List<string> GetRandomAds()
         {
-            List<string> randomAds = new ();
+            List<string> randomAds = new();
             List<int> randomIndexes = GenerateRandomIndexes();
 
             foreach (int index in randomIndexes)
