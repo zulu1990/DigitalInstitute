@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Runtime.Intrinsics.X86;
-using System.Threading;
-
-namespace Task
+﻿namespace Task
 {
     internal class Program
     {
