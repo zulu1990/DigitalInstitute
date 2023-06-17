@@ -8,8 +8,93 @@ namespace Task
     {
         static void Main(string[] args)
         {
+            //Task 1
+            Task1Test();
+
+            //Task 2
+            Task2Test();
+
+            //Task3
+            Task3Test();
 
         }
+
+
+        public static void Task1Test()
+        {
+            Pair<int, string> pair = new Pair<int, string>(5, "Dog");
+
+            var oldPairValues = pair.GetValues();
+
+            Console.WriteLine(oldPairValues.first);
+            Console.WriteLine(oldPairValues.second);
+
+
+            Pair<string, bool> pair1 = new Pair<string, bool>(default, default);
+
+            pair1.SetValues("Text", true);
+            var newPairValues = pair1.GetValues();
+
+            Console.WriteLine(newPairValues.first);
+            Console.WriteLine(newPairValues.second);
+        }
+
+        public static void Task2Test()
+        {
+
+            int a = 5;
+            int b = 10;
+
+            SwapUtility.Swap(ref a, ref b);
+            Console.WriteLine($"{nameof(a)}: {a}");
+            Console.WriteLine($"{nameof(b)}: {b}");
+
+            string first = "Apple";
+            string second = "Banana";
+
+            SwapUtility.Swap(ref first,ref second);
+            Console.WriteLine($"{nameof(first)}: {first}");
+            Console.WriteLine($"{nameof(second)}: {second}");
+        }
+
+        public static void Task3Test()
+        {
+            SortedCollection<int> sortedIntCollection = new SortedCollection<int>();
+            sortedIntCollection.Add(1);
+            sortedIntCollection.Add(10);
+            sortedIntCollection.Add(-5);
+            sortedIntCollection.Add(-8);
+            sortedIntCollection.Add(4);
+            sortedIntCollection.Add(0);
+            sortedIntCollection.Add(7);
+            sortedIntCollection.DisplayCollection();
+
+            Console.WriteLine();
+
+            SortedCollection<string> sortedStringCollection = new SortedCollection<string>();
+            sortedStringCollection.Add("Apple");
+            sortedStringCollection.Add("Watermelon");
+            sortedStringCollection.Add("Peach");
+            sortedStringCollection.Add("Banana");
+            sortedStringCollection.Add("Strawberry");
+            sortedStringCollection.Add("Blueberry");
+            sortedStringCollection.Add("Pineapple");
+            sortedStringCollection.DisplayCollection();
+
+            Console.WriteLine();
+
+            SortedCollection<Cartrige> sortedCartrigeCollection = new SortedCollection<Cartrige>();
+            sortedCartrigeCollection.Add(new Cartrige("6mm BR", 0.243));
+            sortedCartrigeCollection.Add(new Cartrige(".220 Swift", 0.224));
+            sortedCartrigeCollection.Add(new Cartrige(".26 Nosler", 0.264));
+            sortedCartrigeCollection.Add(new Cartrige("6.8 Remington SPC", 0.277));
+            sortedCartrigeCollection.Add(new Cartrige(".204 Ruger", 0.204));
+            sortedCartrigeCollection.Add(new Cartrige(".416 Remington Magnum", 0.416));
+            sortedCartrigeCollection.Add(new Cartrige(".17 HMR", 0.172));
+            sortedCartrigeCollection.Add(new Cartrige(".50 BMG", 0.51));
+            sortedCartrigeCollection.DisplayCollection();
+        }
+
     }
     //Task 1
     //Generic Classes:
