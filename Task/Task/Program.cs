@@ -4,7 +4,46 @@
     {
         static void Main(string[] args)
         {
+            //Task1
+            CustomEnumerator();
+
+            //Task2
+            FibonacciWithYield();
         }
+
+        public static void CustomEnumerator()
+        {
+            MyIntegerRange range = new MyIntegerRange(-10, 10);
+
+            foreach (int i in range)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+        public static void FibonacciWithYield()
+        {
+            foreach(var n in Fibonacci(15))
+            {
+                Console.WriteLine(n);
+            }
+        }
+
+        public static IEnumerable<int> Fibonacci(int n)
+        {
+            int prevprev = 0;
+            int prev = 1;
+            int curr = prevprev + prev;
+
+            for (int i = 0; i < n; i++)
+            {
+                yield return prevprev;
+                prevprev = prev;
+                prev = curr;
+                curr = prevprev + prev;
+            }
+        }
+
         //Task 1: Simple IEnumerable and IEnumerator Implementation
         //Create a simple class MyIntegerRange that represents a range of integers and implements IEnumerable<int>.
         //It should have two private fields for the start and end of the range.
