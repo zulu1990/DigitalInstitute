@@ -4,10 +4,82 @@
     {
         static void Main(string[] args)
         {
+            //Task 1 & Task 2
+            SimpleDelegates();
+
+            //Task 3
+            NamelessFunctionDelegate();
+
+            //Task 4
+            ActionDelegate();
+
+            //Task 5
+            FuncDelegate();
         }
+
+        public static void SimpleDelegates()
+        {
+            PerformCalculation calculation = default;
+
+            calculation += Add;
+            var sum = calculation(5, 2);
+            Console.WriteLine(sum);
+
+            calculation += Subtract;
+            var difference = calculation(5, 2);
+            Console.WriteLine(difference);
+
+            calculation += Multiply;
+            var product = calculation(5, 2);
+            Console.WriteLine(product);
+
+            calculation += Divide;
+            var quotient = calculation(5, 2);
+            Console.WriteLine(quotient);
+        }
+
+        public delegate double PerformCalculation(double a, double b);
+        public static double Add(double a, double b)
+        {
+            return a + b;
+        }
+        public static double Subtract(double a, double b)
+        {
+            return a - b;
+        }
+        public static double Multiply(double a, double b)
+        {
+            return a * b;
+        }
+        public static double Divide(double a, double b)
+        {
+            return a / b;
+        }
+
+        public static void NamelessFunctionDelegate()
+        {
+            Func<int, int, int> add = delegate (int a, int b) { return a + b; };
+            Console.WriteLine(add(7,8));
+        }
+
+        public static void ActionDelegate()
+        {
+            Action<int, int> printSum = delegate (int a, int b) {  Console.WriteLine(a + b); };
+            printSum(15,25);
+        }
+
+        public static void FuncDelegate()
+        {
+            Func<int, int, int> sum = delegate (int a, int b) { return a + b; };
+            Console.WriteLine(sum(9,9));
+
+            Func<int, int, Func<int, int, int>, int> prod = delegate (int a, int b, Func<int, int, int> func) { return func(a, b) * 2; };
+            Console.WriteLine(prod(4,6,sum.Invoke));
+        }
+
     }
 
-    //    Task 1: Use a Delegate to Add Numbers
+    //Task 1: Use a Delegate to Add Numbers
     //Make a delegate that can represent a method.
     //This method should take in two numbers, add them together, and give back the result.
     //Then, create this method and show how you can use the delegate to "point" to this method and use it.
