@@ -1,4 +1,8 @@
-﻿namespace Task
+﻿using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Runtime.Intrinsics.X86;
+
+namespace Task
 {
     internal class Program
     {
@@ -29,4 +33,19 @@
     //  You need to make a new list that only includes the students whose average grade is greater than 85.
     //  This will involve adding up all of a student's grades and dividing by the total number of grades to find the average.
     //  Use a delegate to decide if a student's average grade is greater than 85.
+
+
+    //  Task 4: Filtering Employees by Department and Salary (Hard one)
+    //  You have a list of workers.
+    //  Each worker has a name, a department where they work, and a salary.
+    //  You need to create a new list.
+    //  This list should only have workers who work in the "Sales" department and earn more than $5000.
+    //  To do this, you will create three functions:
+    //  1) The first function will check if a worker is in the "Sales" department.
+    //  2) The second function will check if a worker earns more than $5000.
+    //  3)  After you create these two functions, you will create a third function.
+    //      This function will combine the first two functions.
+    //      If a worker passes both checks, they should be added to the new list.
+    //  Use this THIRD(!!) function with the Where method to create your new list.
+    //  This task will help you understand how to use multiple functions together to filter a list.
 }
