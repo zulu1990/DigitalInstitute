@@ -37,7 +37,7 @@ namespace Task
         {
             string vowels = "aeiouAEIOU";
 
-            int vowelCount = word.CustomCount(c => vowels.Contains(c));
+            int vowelCount = word.CustomCount(c => vowels.CustomContains(c));
             int consonantCount = word.Length - vowelCount;
 
             return consonantCount > vowelCount;
