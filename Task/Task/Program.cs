@@ -1,6 +1,5 @@
-﻿using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System;
+using System.Net.NetworkInformation;
 
 namespace Task
 {
@@ -8,9 +7,90 @@ namespace Task
     {
         static void Main(string[] args)
         {
+            Bird bird = new Bird();
+            bird.Name = "Sparrow";
+            bird.Age = 2;
+            bird.Color = "Gray";
+            bird.Move();
 
+            Cat cat = new Cat();
+            cat.Name = "Tom";
+            cat.Age = 5;
+            cat.Color = "Black";
+            cat.Move();
+
+            Fish fish = new Fish();
+            fish.Name = "Nemo";
+            fish.Age = 1;
+            fish.Color = "Orange";
+            fish.Move();
+
+            Lion lion = new Lion();
+            lion.Name = "Mirrage";
+            lion.Age = 1;
+            lion.Color = "Black";
+            lion.Move();
+        }
+        abstract class Animal
+        {
+            public string Name;
+            public int Age;
+            public string Color;
+
+            public virtual void Move()
+            {
+                Console.WriteLine("The animal moves");
+
+            }
+        }
+        class Bird : Animal
+        {
+            public override void Move()
+            {
+                Console.WriteLine("The bird flies. ");
+            }
+            public void GetDetails()
+            {
+                Console.WriteLine($"Name{base.Name}, Age{base.Age}, Color{base.Color}");
+            }
+        }
+        sealed class Cat : Animal
+        {
+            public override void Move()
+            {
+                Console.WriteLine("The cat runs. ");
+            }
+            public void GetDetails()
+            {
+                Console.WriteLine($"Name{base.Name}, Age{base.Age}, Color{base.Color}");
+            }
+        }
+        class Fish : Animal
+        {
+            public override void Move()
+            {
+                Console.WriteLine("The fish swims");
+            }
+            public void GetDetails()
+            {
+                Console.WriteLine($"Name{base.Name}, Age{base.Age}, Color{base.Color}");
+            }
+        }
+        class Lion : Animal
+        {
+            public override void Move()
+            {
+                Console.WriteLine("The Lion roars");
+            }
+            public void GetDetails()
+            {
+                Console.WriteLine($"Name{base.Name}, Age{base.Age}, Color{base.Color}");
+            }
         }
     }
+}
+
+
     // 1) Creating a Base Class and Derived Classes
 
     //Create an abstract base class called 'Animal' with properties like 'Name', 'Age' and 'Color'.
