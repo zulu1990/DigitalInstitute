@@ -6,10 +6,51 @@ namespace Task
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
+            // Task 1
+            List<int> numbers = Enumerable.Range(1, 1000).ToList();
+            Func<int, bool> isPrime = PrimeNumbers;
+            List<int> primeNumbers = numbers.Where(isPrime).ToList();
+            Console.WriteLine("Prime Numbers:");
+            foreach(int num in primeNumbers)
+            {
+                Console.Write($"{num}, " );
+            }
+
+            // Task 2
+            List<string> words = new List<string>(){ "hello", "hi", "orange", "Hiii", "onion"};
+
+
         }
+        #region Task1
+        public static bool PrimeNumbers(int number)
+        {
+            if (number <= 1)
+            {
+                return false;
+            }
+
+            for(int i = 2; i <= Math.Sqrt(number); i++)
+            {
+                if (number % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        #endregion Task 1
+
+        #region Task 2
+
+
+
+        #endregion Task 2
     }
+
+
 
     // Before you start!!!!!!!!!!!!
     // you don't need to use the keyword "delegate" in any of these tasks (use FUNC!).
