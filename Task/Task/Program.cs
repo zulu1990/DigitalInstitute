@@ -21,8 +21,6 @@
 
             printTask("Task 4 - Crazy asian (Asian Difficulty)");
             Task4.Start();
-
-            printTask("Crazy asian -> EMOTIONAL DAMAGE");
         }
     }
 }

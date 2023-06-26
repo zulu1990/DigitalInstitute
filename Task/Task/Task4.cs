@@ -55,24 +55,18 @@
 
         static void ComplexThingy()
         {
-            int[] numbers = { 1, 6, 3, 2, 7, 4, 9, 8, 3, 2, 1, 5, 6, 4, 2, 3 };
+            int[] numbers = { 8, 3, 2, 9, 4, 1, 7, 6, 5, 10 };
 
-            int startIndex = Array.FindIndex(numbers, num => num < 5);
-            int endIndex = Array.FindIndex(numbers, startIndex + 1, num => num < 5);
+            var sortedNumbers = numbers
+                .SkipWhile(num => num >= 5)
+                .TakeWhile(num => num >= 5)
+                .OrderBy(num => num)
+                .ToArray();
 
-            if (startIndex >= 0 && endIndex >= 0)
+            Console.WriteLine("Sorted numbers after the first number less than 5 until the next number less than 5:");
+            foreach (var number in sortedNumbers)
             {
-                int[] sortedNumbers = numbers.Skip(startIndex + 1).Take(endIndex - startIndex - 1).OrderBy(num => num).ToArray();
-
-                Console.WriteLine("Sorted numbers after the first number less than 5 and until the next number less than 5:");
-                foreach (int number in sortedNumbers)
-                {
-                    Console.WriteLine(number);
-                }
-            }
-            else
-            {
-                Console.WriteLine("No numbers found that meet the criteria.");
+                Console.WriteLine(number);
             }
         }
         static void CommonLength()
