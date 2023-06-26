@@ -62,8 +62,9 @@ namespace Task
                 new Employee("John", DepartmentTypes.Sales),
                 new Employee("Depp", DepartmentTypes.Sales),
             };
-
-            var newList = employees.CustomWhere(x => x.DepartmentTypeId == DepartmentTypes.Sales && x.Salary > 5000);
+            Func<DepartmentTypes, bool> IsFromSalesDepartment = (DepartmentTypes departmentType) => departmentType == DepartmentTypes.Sales;
+            Func<decimal, bool> IsSalaryGreaterThan5000 = (decimal salary) => salary > 5000;
+            var newList = employees.CustomWhere(x => IsFromSalesDepartment(x.DepartmentTypeId) && IsSalaryGreaterThan5000(x.Salary));
 
             Action<Employee> action = employee => Console.WriteLine($"Name - {employee.Name}\nDepartment - {Enum.GetName(employee.DepartmentTypeId)}\nSalary - {employee.Salary}\n");
 
