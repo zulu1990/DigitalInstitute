@@ -132,14 +132,15 @@ namespace Task
 
         public static bool FilterStudents(List<double> grades)
         {
-            double sum = 0;
-            double average = 0;
-            foreach (var grade in grades)
-            {
-                sum += grade;
-            }
-            average = sum / grades.Count;
+            //double sum = 0;
+            //double average = 0;
+            //foreach (var grade in grades)
+            //{
+            //    sum += grade;
+            //}
+            //average = sum / grades.Count;
 
+            double average = grades.Average();
 
             if (average > 85)
             {
@@ -149,6 +150,8 @@ namespace Task
             {
                 return false;
             }
+
+
         }
         #endregion Task 3
 
