@@ -16,6 +16,8 @@ namespace Task
     {
         static void Main(string[] args)
         {
+            Task1.main();
+            Task2.main();
         }
     }
     // Use only LINQ!!! in som ecases you will have to create some classes on your own!
