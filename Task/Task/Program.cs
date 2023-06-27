@@ -113,7 +113,7 @@ namespace Task
         {
             int countVowels = 0;
             int countConsonant = 0;
-            foreach (char letter in text)
+            foreach (char letter in text.ToLower())
             {
                 if ("aeiou".Contains(letter)) countVowels++;
                 else countConsonant++;
