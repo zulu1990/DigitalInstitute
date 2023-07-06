@@ -4,6 +4,42 @@ namespace Task
 {
     internal class Program
     {
+        // Task 1
+        // create random class with seed for example 10 (seeds are important to generate same values) var rand = new Random(10);
+        // generate list with 10000 random integer
+        // use different algorithm to find Max Value
+        //     1) use Sort method and then First to get max value
+        //     2) use prebuilt Max Method
+        //     3) use your own algorithm -> create function that takes list as parameter and returns maximum value. Do not use any prebuilt functions.
+        //     4) use Stopwatch class to get required time for each algorithm
+
+
+        // Task 2
+        // you have list that contains 50_000 integers from 1 to 1000
+        // write function that finds number that is repeated most times in list
+        // use stopwatch to calculate time took to complete task
+
+        public static void Main()
+        {
+            // Task 1 
+            MaxValue1();
+            MaxValue2();
+            MaxValue3();
+            MaxValue4();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            // Task 2 
+            Task2LINQ();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Task2Algoritm(); // it's to slow 
+
+
+        }
         public static List<int> RandomIntsList()
         {
             List<int> list = new List<int>();
@@ -25,7 +61,7 @@ namespace Task
             int MaxValue = ints[^1];
             sw.Stop();
 
-            Console.WriteLine(sw.ElapsedMilliseconds);
+            Console.WriteLine(sw.ElapsedMilliseconds + " millseconds");
 
         }
 
@@ -42,7 +78,7 @@ namespace Task
 
             sw.Stop();
 
-            Console.WriteLine(sw.ElapsedMilliseconds);
+            Console.WriteLine(sw.ElapsedMilliseconds + " millseconds");
         }
 
         public static void MaxValue3()
@@ -58,7 +94,7 @@ namespace Task
 
             sw.Stop();
 
-            Console.WriteLine(sw.ElapsedMilliseconds);
+            Console.WriteLine(sw.ElapsedMilliseconds + " millseconds");
 
         }
 
@@ -74,31 +110,19 @@ namespace Task
 
             sw.Stop();
 
-            Console.WriteLine(sw.ElapsedMilliseconds);
+            Console.WriteLine(sw.ElapsedMilliseconds + " millseconds");
 
         }
 
-        public static void Task2()
+        public static void Task2LINQ()
         {
             Stopwatch sw = Stopwatch.StartNew();
 
             List<int> list = RandomIntsList();
 
-            int mostRepideNumber = 0;
-            int count = 0;
+            var max = list.GroupBy(id => id).OrderByDescending(id => id.Count()).Select(g => new { mostTimeRepeadedNumber = g.Key, Count = g.Count() }).First();
 
-            foreach (int number in list)
-            {
-                int maxCount = list.Count(x => x == number);
-
-                if (maxCount > count)
-                {
-                    count = maxCount;
-                    mostRepideNumber = number;
-                }
-            }
-
-            Console.WriteLine(mostRepideNumber + " most repideNumber");
+            Console.WriteLine(max.mostTimeRepeadedNumber);
 
             sw.Stop();
 
@@ -106,39 +130,39 @@ namespace Task
 
         }
 
-
-        public static void Main()
+        public static void Task2Algoritm()
         {
-            // Task 1 
-            MaxValue1();
-            MaxValue2();
-            MaxValue3();
-            MaxValue4();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            Console.WriteLine();
-            Console.WriteLine();
+            List<int> list = RandomIntsList();
 
-            // Task 2 
-            Task2();  // It's too slow
+            int mostTimeRepeadedNumberCount = 0;
+            int mostTimeRepeadedNumber = 0;
 
-
-            // algorithms
-
-            // Task 1
-            // create random class with seed for example 10 (seeds are important to generate same values) var rand = new Random(10);
-            // generate list with 10000 random integer
-            // use different algorithm to find Max Value
-            //     1) use Sort method and then First to get max value
-            //     2) use prebuilt Max Method
-            //     3) use your own algorithm -> create function that takes list as parameter and returns maximum value. Do not use any prebuilt functions.
-            //     4) use Stopwatch class to get required time for each algorithm
+            for (int i = 0; i < list.Count; i++)
+            {
+                int count = 0;
 
 
-            // Task 2
-            // you have list that contains 50_000 integers from 1 to 1000
-            // write function that finds number that is repeated most times in list
-            // use stopwatch to calculate time took to complete task
+                for (int j = 0; j < list.Count; j++)
+                    if (list[j] == list[i])
+                        count++;
 
+
+                if (mostTimeRepeadedNumberCount < count)
+                {
+                    mostTimeRepeadedNumberCount = count;
+                    mostTimeRepeadedNumber = i;
+                }
+            }
+
+            Console.WriteLine($"{mostTimeRepeadedNumber} is number , {Environment.NewLine}" +
+                $"{mostTimeRepeadedNumberCount} is howe much time we have seen this number");
+
+            sw.Stop();
+
+            Console.WriteLine(sw.ElapsedMilliseconds + " millseconds");
         }
+
     }
 }
