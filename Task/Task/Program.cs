@@ -13,14 +13,34 @@ namespace Task
     {
         static void Main(string[] args)
         {
+            //Task 1
+            DebugLogger.LogMessage("This is a log");
 
 
+            //Task 2
+            Employee employee = new Employee();
+            employee.EmployeeId = 1;
+            employee.FirstName = "John";
+            employee.LastName = "Smith";
+            employee.EmailAddress = "JohnSmith123";
+            employee.PhoneNumber = "abcdef";
+            employee.BirthDate = DateTime.Now;
+
+            var validResults = new List<ValidationResult>();
+            var validContext = new ValidationContext(employee);
+
+            bool isValidProp = Validator.TryValidateObject(employee, validContext, validResults, true);
+
+            if (!isValidProp)
+            {
+                foreach (var validationResult in validResults)
+                {
+                    Console.WriteLine(validationResult.ErrorMessage);
+                }
+            }
 
 
-
-
-
-
+            //Task 2
             //Part of Task 2.Uncomment when needed
             //var student = new Person();
             //student.Age = -5;
@@ -37,8 +57,15 @@ namespace Task
             //        Console.WriteLine(validationResult.ErrorMessage);
             //    }
             //}
+
         }
     }
+
+
+
+
+
+
     //    Task 1: Create a Simple Logging Mechanism for Debugging
     //    Objective: In this task, the aim is to create a simple logging mechanism that is only active when the application is running in DEBUG mode.
 
