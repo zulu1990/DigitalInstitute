@@ -78,7 +78,7 @@ namespace Task
                 thread3.Join();
                 thread4.Join();
             }
-            else if (range <= 1000)
+            else
             {
                 Thread thread1 = new Thread(LessThan200);
                 Thread thread2 = new Thread(LessThan400);
@@ -96,6 +96,7 @@ namespace Task
                 thread4.Join();
                 thread5.Join();
             }
+            
 
 
         }
@@ -103,7 +104,7 @@ namespace Task
         private static void LessThan1000(object range)
         {
             int endRange = (int)range;
-            for (int i = 200; i < endRange; i++)
+            for (int i = 800; i < endRange; i++)
             {
                 if (IsPrime(i)) count++;
             }
